@@ -1,0 +1,7 @@
+1. Vào repo Check-TTTM trên GitHub.
+2. Add file -> Upload files.
+3. Kéo toàn bộ các file TRONG thư mục v47_FLAT này lên. Không tạo thư mục con.
+4. Commit changes.
+5. Kiểm tra root repo phải thấy: index.html, style.css, config.js, app.js, staff.json, rules.json, .nojekyll.
+6. Chờ khoảng 1 phút rồi mở lại GitHub Pages và bấm tải lại/refresh.
+7. Hai ô phải hiện số lượng ngay cả khi GitHub API tạm lỗi; sẽ không còn đứng ở “đang tải…”.

@@ -119,7 +119,7 @@
           <li>Chọn nhánh <b>main</b>, thư mục <b>/(root)</b>, rồi lưu.</li>
           <li>Mở đường link GitHub Pages mà GitHub cung cấp. Không cần Python, Flask hay máy chủ riêng.</li>
         </ol>
-        <div class="notice warning"><b>Lưu dữ liệu:</b> danh sách nhân viên được lưu tại <code>data/staff.json</code> và danh mục thủ thuật tại <code>data/rules.json</code> trong repository GitHub. localStorage chỉ là bộ nhớ đệm dự phòng.</div>
+        <div class="notice warning"><b>Lưu dữ liệu:</b> danh sách nhân viên được lưu tại <code>staff.json</code> và danh mục thủ thuật tại <code>rules.json</code> trong repository GitHub. localStorage chỉ là bộ nhớ đệm dự phòng.</div>
         <div class="notice info"><b>Quyền riêng tư:</b> file Excel bệnh nhân vẫn chỉ được xử lý trên thiết bị. Chỉ danh sách nhân viên/danh mục thủ thuật được đưa lên GitHub. Nếu repository là Public thì các file JSON này cũng là dữ liệu công khai.</div>
         <div class="notice info">
           <b>Quyền cập nhật GitHub:</b> lần đầu bấm Cập nhật, ứng dụng sẽ yêu cầu Fine-grained Personal Access Token có quyền <b>Contents: Read and write</b> cho đúng repository. Token chỉ giữ trong phiên trình duyệt, không được ghi vào mã nguồn.
@@ -181,12 +181,7 @@
 
   <noscript><div class="noscript">Ứng dụng cần JavaScript để chạy.</div></noscript>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="config.js"></script>
-  <script src="js/default_data.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/excel.js"></script>
-  <script src="js/checker.js"></script>
-  <script src="js/online_store.js"></script>
-  <script src="js/ui.js"></script>
+  <script src="config.js?v=47"></script>
+  <script src="app.js?v=47"></script>
 </body>
 </html>
