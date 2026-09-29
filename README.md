@@ -34,3 +34,8 @@ File `.nojekyll` đã có sẵn. Không cần thêm file cấu hình hay GitHub 
 GitHub Pages là website có thể truy cập qua Internet. **Không đưa file bệnh nhân, báo cáo kết quả hoặc dữ liệu nhạy cảm vào repository.** Chỉ chọn các file đó từ nút tải file trong ứng dụng; trình duyệt sẽ xử lý cục bộ.
 
 Gói hiện tại giữ dữ liệu danh sách nhân viên mặc định từ bản v44 để ứng dụng hoạt động giống bản cũ. Nếu repository/site của bạn công khai, các tên/mã nhân viên nằm trong mã nguồn cũng có thể được xem từ Internet. Nếu cần triển khai công khai, nên xóa dữ liệu nhân viên mặc định và cập nhật danh sách trực tiếp trong trình duyệt sau khi mở app.
+
+
+## Bản Online v45
+
+Gói này có thêm `config.js`, `js/online_store.js` và `backend/Code.gs` để lưu danh sách nhân viên/danh mục thủ thuật online bằng Google Apps Script + Google Drive. Xem `CAI_DAT_LUU_ONLINE.txt`.

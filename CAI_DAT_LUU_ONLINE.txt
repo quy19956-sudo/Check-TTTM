@@ -1,0 +1,41 @@
+CÀI ĐẶT LƯU DANH SÁCH/DANH MỤC ONLINE
+=====================================
+
+Vì GitHub Pages là web tĩnh nên không thể tự ghi dữ liệu ngược vào GitHub.
+Bản này dùng Google Apps Script làm nơi lưu online; dữ liệu được lưu trong Google Drive.
+
+A. TẠO BACKEND GOOGLE APPS SCRIPT
+1. Mở https://script.google.com/ và tạo New project.
+2. Xóa mã mẫu rồi dán toàn bộ nội dung file backend/Code.gs.
+3. Đổi dòng:
+   const ADMIN_PIN = 'DOI_MA_PIN_NAY';
+   thành mã PIN mạnh của bạn, ví dụ một chuỗi dài chỉ bạn biết.
+4. Bấm Deploy > New deployment > chọn Web app.
+5. Execute as: Me.
+6. Who has access: Anyone (hoặc tùy chọn cho phép truy cập không cần đăng nhập, tùy giao diện Google hiện tại).
+7. Bấm Deploy, cấp quyền Google Drive khi được hỏi.
+8. Copy Web app URL có dạng:
+   https://script.google.com/macros/s/...../exec
+
+B. GẮN BACKEND VÀO WEBSITE
+1. Mở file config.js.
+2. Dán URL vừa copy vào:
+   ONLINE_API_URL: 'https://script.google.com/macros/s/...../exec'
+3. Lưu file.
+4. Upload lại TOÀN BỘ gói này lên GitHub Pages, hoặc tối thiểu các file mới/thay đổi:
+   - config.js
+   - js/online_store.js
+   - js/ui.js
+   - index.html
+5. Chờ GitHub Pages deploy xong, mở lại trang và tải mới.
+
+C. CÁCH DÙNG
+- Khi mở trang: ứng dụng tải danh sách và danh mục từ online nếu đã có.
+- Lần đầu chưa có dữ liệu online: ứng dụng dùng dữ liệu mặc định để chạy.
+- Khi bấm Cập nhật danh sách / Cập nhật danh mục: chọn Excel, nhập PIN quản trị.
+- Sau khi lưu thành công, thiết bị khác mở cùng trang sẽ nhận dữ liệu mới từ online.
+- File Excel bệnh nhân dùng để kiểm tra vẫn chỉ xử lý trên thiết bị, không tải lên backend.
+
+LƯU Ý QUYỀN RIÊNG TƯ
+Backend kiểu này cho phép trang công khai đọc dữ liệu online. Nếu danh sách nhân viên/mã NV không được phép công khai,
+không nên dùng repo GitHub Pages công khai + Web App công khai; khi đó cần backend có đăng nhập/xác thực.

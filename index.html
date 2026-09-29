@@ -11,7 +11,7 @@
   <header class="topbar">
     <div>
       <div class="app-title">Kiểm Tra Thủ Thuật Tim Mạch</div>
-      <div class="app-subtitle">Bản web tĩnh chạy trực tiếp trên GitHub Pages · Không cần Python · Xử lý Excel ngay trên thiết bị<br><b>Phiên bản Web Static v44</b></div>
+      <div class="app-subtitle">GitHub Pages · Không cần Python · Excel xử lý trên thiết bị · Danh sách/danh mục có thể lưu ONLINE qua Google Apps Script<br><b>Phiên bản Web Online v45</b></div>
     </div>
     <nav aria-label="Điều hướng chính">
       <button class="nav-link active" data-page="work">Trang làm việc</button>
@@ -66,8 +66,9 @@
           <li>Cập nhật <b>Danh mục số người thủ thuật</b> khi quy định số người/thời gian thay đổi.</li>
           <li>Chọn file Excel làm việc và bấm <b>Kiểm tra</b>.</li>
           <li>Kết quả có bộ lọc, in A4 ngang và nút tải báo cáo Excel.</li>
-          <li>Danh sách và danh mục cập nhật được lưu riêng trong trình duyệt của thiết bị hiện tại.</li>
+          <li>Danh sách và danh mục có thể <b>lưu ONLINE</b> để các điện thoại/máy tính dùng chung một bộ dữ liệu.</li>
         </ol>
+        <button id="reloadOnline" type="button" class="btn">Tải lại dữ liệu online</button>
       </section>
     </section>
 
@@ -118,8 +119,8 @@
           <li>Chọn nhánh <b>main</b>, thư mục <b>/(root)</b>, rồi lưu.</li>
           <li>Mở đường link GitHub Pages mà GitHub cung cấp. Không cần Python, Flask hay máy chủ riêng.</li>
         </ol>
-        <div class="notice warning"><b>Lưu ý dữ liệu:</b> danh sách nhân viên/danh mục bạn cập nhật được lưu trong localStorage của trình duyệt. Nếu đổi điện thoại, đổi trình duyệt hoặc xóa dữ liệu website, ứng dụng sẽ quay về danh mục mặc định đi kèm.</div>
-        <div class="notice info"><b>Quyền riêng tư:</b> file Excel làm việc được xử lý bằng JavaScript ngay trên thiết bị. GitHub Pages chỉ phục vụ mã nguồn tĩnh.</div>
+        <div class="notice warning"><b>Lưu dữ liệu:</b> sau khi cấu hình Google Apps Script, danh sách nhân viên và danh mục thủ thuật sẽ được lưu ONLINE trong Google Drive của tài khoản triển khai. localStorage chỉ còn là bộ nhớ đệm dự phòng.</div>
+        <div class="notice info"><b>Quyền riêng tư:</b> file Excel bệnh nhân dùng để kiểm tra vẫn được xử lý bằng JavaScript ngay trên thiết bị và không tải lên backend. Chỉ danh sách nhân viên/danh mục thủ thuật được đồng bộ online.</div>
       </section>
     </section>
 
@@ -166,17 +167,19 @@
             <tbody id="issueTableBody"></tbody>
           </table>
         </div>
-        <div class="print-footer"><p>Ghi chú: Kết quả được đối chiếu theo danh sách khoa và danh mục số người thủ thuật đang lưu trong trình duyệt tại thời điểm kiểm tra.</p></div>
+        <div class="print-footer"><p>Ghi chú: Kết quả được đối chiếu theo danh sách khoa và danh mục số người thủ thuật đang dùng tại thời điểm kiểm tra (ưu tiên dữ liệu online khi đã cấu hình).</p></div>
       </section>
     </section>
   </main>
 
   <noscript><div class="noscript">Ứng dụng cần JavaScript để chạy.</div></noscript>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="config.js"></script>
   <script src="js/default_data.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/excel.js"></script>
   <script src="js/checker.js"></script>
+  <script src="js/online_store.js"></script>
   <script src="js/ui.js"></script>
 </body>
 </html>
