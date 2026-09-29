@@ -1,0 +1,60 @@
+CÀI ĐẶT LƯU DANH SÁCH / DANH MỤC TRỰC TIẾP TRÊN GITHUB
+============================================================
+
+Bản v46 KHÔNG dùng Google Apps Script / Google Drive để lưu danh sách và danh mục.
+Khi bạn bấm "Cập nhật danh sách" hoặc "Cập nhật danh mục", ứng dụng sẽ commit JSON trực tiếp vào repository GitHub.
+
+REPOSITORY ĐÃ CẤU HÌNH SẴN
+- Owner: quy19956-sudo
+- Repository: Check-TTTM
+- Branch: main
+- Danh sách nhân viên: data/staff.json
+- Danh mục thủ thuật: data/rules.json
+
+Nếu repository của bạn có tên khác, sửa file config.js.
+
+1. TẠO FINE-GRAINED GITHUB TOKEN
+---------------------------------
+Trong GitHub:
+- Mở Settings của tài khoản.
+- Vào Developer settings -> Personal access tokens -> Fine-grained tokens.
+- Tạo token mới.
+- Repository access: chỉ chọn repository Check-TTTM.
+- Repository permissions -> Contents: chọn Read and write.
+- Không cần cấp thêm quyền không liên quan.
+- Sao chép token và giữ riêng. KHÔNG upload token vào repository.
+
+2. ĐƯA BẢN v46 LÊN REPOSITORY
+-----------------------------
+Upload toàn bộ nội dung của gói này vào repository Check-TTTM, giữ nguyên cấu trúc.
+index.html phải nằm ở thư mục gốc.
+GitHub Pages dùng branch main và /(root).
+
+3. CÁCH CẬP NHẬT DỮ LIỆU
+-------------------------
+- Mở trang GitHub Pages.
+- Vào "Cập nhật danh sách" hoặc "Cập nhật danh mục".
+- Chọn file Excel và bấm cập nhật.
+- Lần đầu trong phiên, ứng dụng hỏi GitHub token.
+- Dán token vừa tạo.
+- Ứng dụng sẽ commit:
+    data/staff.json  hoặc
+    data/rules.json
+  lên branch main.
+- Máy khác mở cùng trang và tải lại sẽ đọc dữ liệu mới từ GitHub.
+
+4. BẢO MẬT
+----------
+- Token không nằm trong config.js và không được commit vào GitHub.
+- Token chỉ giữ trong sessionStorage của phiên trình duyệt; đóng toàn bộ tab/trình duyệt thì thường sẽ phải nhập lại.
+- Nên dùng Fine-grained token chỉ giới hạn đúng repository Check-TTTM và chỉ quyền Contents: Read and write.
+- Nếu repository là Public, nội dung data/staff.json và data/rules.json có thể được người khác xem.
+  Không đưa thông tin không được phép công khai vào repository Public.
+- File Excel bệnh nhân dùng để KIỂM TRA không được upload lên GitHub; file đó vẫn xử lý cục bộ trên thiết bị.
+
+5. NẾU BÁO LỖI
+--------------
+- 401: token sai/hết hạn.
+- 403: token chưa có Contents: Read and write.
+- 404: tên owner/repo/path sai hoặc token chưa được cấp quyền repo.
+- 409: có thay đổi đồng thời; tải lại trang rồi thử lại.

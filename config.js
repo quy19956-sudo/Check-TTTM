@@ -1,5 +1,10 @@
-// CẤU HÌNH LƯU DỮ LIỆU ONLINE
-// Sau khi triển khai Google Apps Script Web App, dán URL /exec vào đây rồi upload lại file config.js lên GitHub.
+// CẤU HÌNH ĐỒNG BỘ DỮ LIỆU TRỰC TIẾP VỚI GITHUB
+// KHÔNG dán GitHub token vào file này.
+// Khi cần cập nhật Danh sách/Danh mục, ứng dụng sẽ hỏi token và chỉ giữ trong phiên trình duyệt.
 window.APP_CONFIG = {
-  ONLINE_API_URL: ''
+  GITHUB_OWNER: 'quy19956-sudo',
+  GITHUB_REPO: 'Check-TTTM',
+  GITHUB_BRANCH: 'main',
+  GITHUB_STAFF_PATH: 'data/staff.json',
+  GITHUB_RULES_PATH: 'data/rules.json'
 };

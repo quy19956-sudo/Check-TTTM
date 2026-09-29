@@ -11,7 +11,7 @@
   <header class="topbar">
     <div>
       <div class="app-title">Kiểm Tra Thủ Thuật Tim Mạch</div>
-      <div class="app-subtitle">GitHub Pages · Không cần Python · Excel xử lý trên thiết bị · Danh sách/danh mục có thể lưu ONLINE qua Google Apps Script<br><b>Phiên bản Web Online v45</b></div>
+      <div class="app-subtitle">GitHub Pages · Không cần Python · Excel xử lý trên thiết bị · Danh sách/danh mục lưu trực tiếp trong GitHub<br><b>Phiên bản GitHub Sync v46</b></div>
     </div>
     <nav aria-label="Điều hướng chính">
       <button class="nav-link active" data-page="work">Trang làm việc</button>
@@ -66,9 +66,9 @@
           <li>Cập nhật <b>Danh mục số người thủ thuật</b> khi quy định số người/thời gian thay đổi.</li>
           <li>Chọn file Excel làm việc và bấm <b>Kiểm tra</b>.</li>
           <li>Kết quả có bộ lọc, in A4 ngang và nút tải báo cáo Excel.</li>
-          <li>Danh sách và danh mục có thể <b>lưu ONLINE</b> để các điện thoại/máy tính dùng chung một bộ dữ liệu.</li>
+          <li>Danh sách và danh mục được <b>commit vào GitHub</b> để các điện thoại/máy tính dùng chung một bộ dữ liệu.</li>
         </ol>
-        <button id="reloadOnline" type="button" class="btn">Tải lại dữ liệu online</button>
+        <button id="reloadOnline" type="button" class="btn">Tải lại dữ liệu từ GitHub</button>
       </section>
     </section>
 
@@ -119,8 +119,15 @@
           <li>Chọn nhánh <b>main</b>, thư mục <b>/(root)</b>, rồi lưu.</li>
           <li>Mở đường link GitHub Pages mà GitHub cung cấp. Không cần Python, Flask hay máy chủ riêng.</li>
         </ol>
-        <div class="notice warning"><b>Lưu dữ liệu:</b> sau khi cấu hình Google Apps Script, danh sách nhân viên và danh mục thủ thuật sẽ được lưu ONLINE trong Google Drive của tài khoản triển khai. localStorage chỉ còn là bộ nhớ đệm dự phòng.</div>
-        <div class="notice info"><b>Quyền riêng tư:</b> file Excel bệnh nhân dùng để kiểm tra vẫn được xử lý bằng JavaScript ngay trên thiết bị và không tải lên backend. Chỉ danh sách nhân viên/danh mục thủ thuật được đồng bộ online.</div>
+        <div class="notice warning"><b>Lưu dữ liệu:</b> danh sách nhân viên được lưu tại <code>data/staff.json</code> và danh mục thủ thuật tại <code>data/rules.json</code> trong repository GitHub. localStorage chỉ là bộ nhớ đệm dự phòng.</div>
+        <div class="notice info"><b>Quyền riêng tư:</b> file Excel bệnh nhân vẫn chỉ được xử lý trên thiết bị. Chỉ danh sách nhân viên/danh mục thủ thuật được đưa lên GitHub. Nếu repository là Public thì các file JSON này cũng là dữ liệu công khai.</div>
+        <div class="notice info">
+          <b>Quyền cập nhật GitHub:</b> lần đầu bấm Cập nhật, ứng dụng sẽ yêu cầu Fine-grained Personal Access Token có quyền <b>Contents: Read and write</b> cho đúng repository. Token chỉ giữ trong phiên trình duyệt, không được ghi vào mã nguồn.
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <button id="testGithubToken" type="button" class="btn">Kiểm tra token GitHub</button>
+            <button id="forgetGithubToken" type="button" class="btn">Xóa token khỏi phiên</button>
+          </div>
+        </div>
       </section>
     </section>
 
@@ -167,7 +174,7 @@
             <tbody id="issueTableBody"></tbody>
           </table>
         </div>
-        <div class="print-footer"><p>Ghi chú: Kết quả được đối chiếu theo danh sách khoa và danh mục số người thủ thuật đang dùng tại thời điểm kiểm tra (ưu tiên dữ liệu online khi đã cấu hình).</p></div>
+        <div class="print-footer"><p>Ghi chú: Kết quả được đối chiếu theo danh sách khoa và danh mục số người thủ thuật đang dùng tại thời điểm kiểm tra (ưu tiên dữ liệu đang lưu trên GitHub).</p></div>
       </section>
     </section>
   </main>

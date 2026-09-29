@@ -22,11 +22,17 @@
   function setLoading(form,on){if(!form)return;form.classList.toggle('loading',!!on);for(const el of form.querySelectorAll('button,input'))el.disabled=!!on;}
   function validExcelName(name){return /\.(xlsx|xls)$/i.test(name||'');}
   function onlineEnabled(){return !!(App.OnlineStore&&App.OnlineStore.enabled&&App.OnlineStore.enabled());}
-  function askAdminPin(action){
-    const pin=global.prompt(`Nhập mã PIN quản trị để ${action} ONLINE:`);
-    if(pin===null)throw new Error('Đã hủy thao tác.');
-    if(!String(pin).trim())throw new Error('Mã PIN không được để trống.');
-    return String(pin).trim();
+  function askGithubToken(action){
+    let token=App.OnlineStore&&App.OnlineStore.getToken?App.OnlineStore.getToken():'';
+    if(token)return token;
+    token=global.prompt(
+      `Để ${action} và commit vào GitHub, hãy dán Fine-grained Personal Access Token có quyền Contents: Read and write cho repo ${App.OnlineStore.repo}.\n\nToken chỉ được giữ trong PHIÊN trình duyệt này, không ghi vào GitHub.`
+    );
+    if(token===null)throw new Error('Đã hủy thao tác.');
+    token=String(token).trim();
+    if(!token)throw new Error('GitHub token không được để trống.');
+    App.OnlineStore.setToken(token);
+    return token;
   }
   async function loadOnlineData(showNotice=true){
     if(!onlineEnabled())return false;
@@ -37,7 +43,7 @@
     if(showNotice){
       const a=remote.staff&&Array.isArray(remote.staff.items)?`${remote.staff.items.length} nhân viên`:'chưa có danh sách online';
       const b=remote.rules&&Array.isArray(remote.rules.items)?`${remote.rules.items.length} thủ thuật`:'chưa có danh mục online';
-      showMessage(`Đã tải dữ liệu ONLINE: ${a}; ${b}.`,'success');
+      showMessage(`Đã tải dữ liệu từ GitHub (${App.OnlineStore.repo}): ${a}; ${b}.`,'success');
     }
     return true;
   }
@@ -112,15 +118,15 @@
       const parsed=await App.loadStaffExcel(file);if(!parsed.items.length)throw new Error('File không giống danh sách nhân viên. Nên dùng 3 cột STT, Mã NV, Họ và tên; không chọn file thủ thuật HIS.');
       const candidate={source_file:file.name,updated_at:App.nowText(),items:parsed.items};
       if(onlineEnabled()){
-        const pin=askAdminPin('lưu danh sách nhân viên');
-        showMessage('Đang lưu danh sách lên ONLINE…','info');
+        const pin=askGithubToken('lưu danh sách nhân viên');
+        showMessage('Đang commit danh sách lên GitHub…','info');
         const result=await App.OnlineStore.saveStaff(candidate,pin);
         staffData=result.data&&Array.isArray(result.data.items)?result.data:candidate;
         saveStored(STAFF_KEY,staffData);refreshAll();
-        showMessage(`Đã lưu ONLINE ${parsed.items.length} nhân viên từ sheet ${parsed.sheet}. Thiết bị khác sẽ dùng danh sách này khi tải lại trang.`,'success');
+        showMessage(`Đã commit ${parsed.items.length} nhân viên lên GitHub từ sheet ${parsed.sheet}. Thiết bị khác chỉ cần tải lại trang để dùng danh sách mới.`,'success');
       }else{
         staffData=candidate;saveStored(STAFF_KEY,staffData);refreshAll();
-        showMessage(`Đã cập nhật ${parsed.items.length} nhân viên nhưng CHỈ LƯU TRÊN THIẾT BỊ NÀY vì chưa cấu hình ONLINE_API_URL.`,'error');
+        showMessage(`Đã cập nhật ${parsed.items.length} nhân viên nhưng CHỈ LƯU TRÊN THIẾT BỊ NÀY vì chưa cấu hình GitHub trong config.js.`,'error');
       }
       form.reset();
     }catch(err){showMessage('Không cập nhật được danh sách: '+(err.message||err),'error');}finally{setLoading(form,false);}
@@ -132,15 +138,15 @@
       const parsed=await App.loadRulesExcel(file);if(!parsed.items.length)throw new Error('Không tìm thấy cột TENPT/danh mục phù hợp trong file.');
       const candidate={source_file:file.name,updated_at:App.nowText(),items:parsed.items};
       if(onlineEnabled()){
-        const pin=askAdminPin('lưu danh mục thủ thuật');
-        showMessage('Đang lưu danh mục lên ONLINE…','info');
+        const pin=askGithubToken('lưu danh mục thủ thuật');
+        showMessage('Đang commit danh mục lên GitHub…','info');
         const result=await App.OnlineStore.saveRules(candidate,pin);
         rulesData=result.data&&Array.isArray(result.data.items)?result.data:candidate;
         saveStored(RULES_KEY,rulesData);refreshAll();
-        showMessage(`Đã lưu ONLINE ${parsed.items.length} thủ thuật từ sheet ${parsed.sheet}. Thiết bị khác sẽ dùng danh mục này khi tải lại trang.`,'success');
+        showMessage(`Đã commit ${parsed.items.length} thủ thuật lên GitHub từ sheet ${parsed.sheet}. Thiết bị khác chỉ cần tải lại trang để dùng danh mục mới.`,'success');
       }else{
         rulesData=candidate;saveStored(RULES_KEY,rulesData);refreshAll();
-        showMessage(`Đã cập nhật ${parsed.items.length} thủ thuật nhưng CHỈ LƯU TRÊN THIẾT BỊ NÀY vì chưa cấu hình ONLINE_API_URL.`,'error');
+        showMessage(`Đã cập nhật ${parsed.items.length} thủ thuật nhưng CHỈ LƯU TRÊN THIẾT BỊ NÀY vì chưa cấu hình GitHub trong config.js.`,'error');
       }
       form.reset();
     }catch(err){showMessage('Không cập nhật được danh mục: '+(err.message||err),'error');}finally{setLoading(form,false);}
@@ -150,7 +156,7 @@
     try{
       if(!global.confirm('Khôi phục danh sách nhân viên mặc định?'))return;
       const data=clone(App.DEFAULT_STAFF);data.updated_at=App.nowText();data.source_file='Danh sách mặc định';
-      if(onlineEnabled()){const pin=askAdminPin('khôi phục danh sách mặc định');const r=await App.OnlineStore.saveStaff(data,pin);staffData=r.data||data;saveStored(STAFF_KEY,staffData);refreshAll();showMessage('Đã khôi phục và lưu danh sách mặc định lên ONLINE.','success');}
+      if(onlineEnabled()){const pin=askGithubToken('khôi phục danh sách mặc định');const r=await App.OnlineStore.saveStaff(data,pin);staffData=r.data||data;saveStored(STAFF_KEY,staffData);refreshAll();showMessage('Đã khôi phục và commit danh sách mặc định lên GitHub.','success');}
       else{localStorage.removeItem(STAFF_KEY);staffData=data;saveStored(STAFF_KEY,staffData);refreshAll();showMessage('Đã khôi phục mặc định nhưng chỉ lưu trên thiết bị này vì chưa cấu hình online.','error');}
     }catch(err){showMessage('Không khôi phục được danh sách: '+(err.message||err),'error');}
   }
@@ -158,7 +164,7 @@
     try{
       if(!global.confirm('Khôi phục danh mục thủ thuật mặc định?'))return;
       const data=clone(App.DEFAULT_RULES);data.updated_at=App.nowText();data.source_file='Danh mục mặc định';
-      if(onlineEnabled()){const pin=askAdminPin('khôi phục danh mục mặc định');const r=await App.OnlineStore.saveRules(data,pin);rulesData=r.data||data;saveStored(RULES_KEY,rulesData);refreshAll();showMessage('Đã khôi phục và lưu danh mục mặc định lên ONLINE.','success');}
+      if(onlineEnabled()){const pin=askGithubToken('khôi phục danh mục mặc định');const r=await App.OnlineStore.saveRules(data,pin);rulesData=r.data||data;saveStored(RULES_KEY,rulesData);refreshAll();showMessage('Đã khôi phục và commit danh mục mặc định lên GitHub.','success');}
       else{localStorage.removeItem(RULES_KEY);rulesData=data;saveStored(RULES_KEY,rulesData);refreshAll();showMessage('Đã khôi phục mặc định nhưng chỉ lưu trên thiết bị này vì chưa cấu hình online.','error');}
     }catch(err){showMessage('Không khôi phục được danh mục: '+(err.message||err),'error');}
   }
@@ -168,14 +174,16 @@
     document.querySelectorAll('.nav-link').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.goto)));
     $('workForm').addEventListener('submit',onWorkSubmit);$('staffForm').addEventListener('submit',onStaffSubmit);$('rulesForm').addEventListener('submit',onRulesSubmit);
     $('resetStaff').addEventListener('click',resetStaffData);$('resetRules').addEventListener('click',resetRulesData);
-    if($('reloadOnline'))$('reloadOnline').addEventListener('click',async()=>{try{showMessage('Đang tải lại dữ liệu ONLINE…','info');await loadOnlineData(true);}catch(err){showMessage('Không tải được dữ liệu ONLINE: '+(err.message||err),'error');}});
+    if($('reloadOnline'))$('reloadOnline').addEventListener('click',async()=>{try{showMessage('Đang tải lại dữ liệu từ GitHub…','info');await loadOnlineData(true);}catch(err){showMessage('Không tải được dữ liệu từ GitHub: '+(err.message||err),'error');}});
     $('printResult').addEventListener('click',()=>window.print());$('downloadReport').addEventListener('click',downloadReport);$('clearFilters').addEventListener('click',clearFilters);$('issueTable').querySelectorAll('.filter-row input,.filter-row select').forEach(el=>el.addEventListener('input',applyFilters));window.addEventListener('resize',updateScrollLimit);
     if(!global.XLSX){showMessage('Không tải được thư viện Excel từ CDN. Hãy kiểm tra kết nối Internet và tải lại trang.','error');return;}
+    if($('forgetGithubToken'))$('forgetGithubToken').addEventListener('click',()=>{if(App.OnlineStore&&App.OnlineStore.clearToken)App.OnlineStore.clearToken();showMessage('Đã xóa GitHub token khỏi phiên trình duyệt này.','success');});
+    if($('testGithubToken'))$('testGithubToken').addEventListener('click',async()=>{try{const token=askGithubToken('kiểm tra quyền ghi');showMessage('Đang kiểm tra quyền GitHub…','info');const r=await App.OnlineStore.checkWriteAccess(token);showMessage(`Token truy cập được repo ${r.repo}. Khi cập nhật danh sách/danh mục, dữ liệu sẽ được commit lên nhánh ${App.OnlineStore.branch}.`,'success');}catch(err){showMessage('Không kiểm tra được quyền GitHub: '+(err.message||err),'error');}});
     if(onlineEnabled()){
-      try{showMessage('Đang tải danh sách và danh mục ONLINE…','info');await loadOnlineData(false);showMessage('Đã kết nối lưu ONLINE. Danh sách/danh mục sẽ đồng bộ giữa các thiết bị sau khi tải lại trang.','success');}
-      catch(err){showMessage('Không tải được dữ liệu ONLINE; tạm dùng dữ liệu lưu trên thiết bị/mặc định. Lỗi: '+(err.message||err),'error');}
+      try{showMessage('Đang tải danh sách và danh mục từ GitHub…','info');await loadOnlineData(false);showMessage(`Đã kết nối dữ liệu GitHub ${App.OnlineStore.repo}. Danh sách/danh mục sẽ dùng chung giữa các thiết bị.`,'success');}
+      catch(err){showMessage('Không tải được dữ liệu GitHub; tạm dùng dữ liệu lưu trên thiết bị/mặc định. Lỗi: '+(err.message||err),'error');}
     }else{
-      showMessage('Chưa cấu hình lưu ONLINE. Hãy dán URL Google Apps Script vào config.js. Hiện dữ liệu cập nhật chỉ lưu trên thiết bị này.','error');
+      showMessage('Chưa cấu hình repository GitHub trong config.js. Hiện dữ liệu cập nhật chỉ lưu trên thiết bị này.','error');
     }
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{init();});else init();
