@@ -1,0 +1,288 @@
+{
+  "source_file": "Danh Sách Khoa Nội Tim Mạch 2026 CÓ MA NV.xlsx",
+  "updated_at": "19/07/2026 04:30",
+  "items": [
+    {
+      "name": "Lê Lâm Quốc Đăng",
+      "title": "Bác sĩ",
+      "code": "0400",
+      "row": 3
+    },
+    {
+      "name": "Phan Hiếu Trung",
+      "title": "Bác sĩ",
+      "code": "0402",
+      "row": 4
+    },
+    {
+      "name": "Nguyễn Chí Tính",
+      "title": "Bác sĩ",
+      "code": "0403",
+      "row": 5
+    },
+    {
+      "name": "Nguyễn Duy Viên",
+      "title": "Bác sĩ",
+      "code": "0408",
+      "row": 6
+    },
+    {
+      "name": "Dương Trung Tá",
+      "title": "Bác sĩ",
+      "code": "1146",
+      "row": 7
+    },
+    {
+      "name": "Lý Phúc Đức",
+      "title": "Bác sĩ",
+      "code": "1555",
+      "row": 8
+    },
+    {
+      "name": "Triệu Phú Cường",
+      "title": "Bác sĩ",
+      "code": "1312",
+      "row": 9
+    },
+    {
+      "name": "Nguyễn Hoàng Anh",
+      "title": "Bác sĩ",
+      "code": "#N/A",
+      "row": 10
+    },
+    {
+      "name": "Nguyễn Thành Công",
+      "title": "Bác sĩ",
+      "code": "1271",
+      "row": 11
+    },
+    {
+      "name": "Nguyễn Duy Khang",
+      "title": "Bác sĩ",
+      "code": "1591",
+      "row": 12
+    },
+    {
+      "name": "Ngô Minh Chiến",
+      "title": "Bác sĩ",
+      "code": "1359",
+      "row": 13
+    },
+    {
+      "name": "Huỳnh Tất Đạt",
+      "title": "Bác sĩ",
+      "code": "1578",
+      "row": 14
+    },
+    {
+      "name": "Thượng Thanh Hùng",
+      "title": "Bác sĩ",
+      "code": "1799",
+      "row": 15
+    },
+    {
+      "name": "Lê Tiến Dũng",
+      "title": "Bác sĩ",
+      "code": "1408",
+      "row": 16
+    },
+    {
+      "name": "Nguyễn Quốc Thịnh",
+      "title": "Bác sĩ",
+      "code": "1698",
+      "row": 17
+    },
+    {
+      "name": "Nguyễn Châu An",
+      "title": "Bác sĩ",
+      "code": "1697",
+      "row": 18
+    },
+    {
+      "name": "Phạm Minh Duy",
+      "title": "Bác sĩ",
+      "code": "1699",
+      "row": 19
+    },
+    {
+      "name": "Trần Lê Anh Tuấn",
+      "title": "Bác sĩ",
+      "code": "1810",
+      "row": 20
+    },
+    {
+      "name": "Trương Hoàng Anh",
+      "title": "Bác sĩ",
+      "code": "",
+      "row": 21
+    },
+    {
+      "name": "Lê Đình Tùng",
+      "title": "Bác sĩ",
+      "code": "1832",
+      "row": 22
+    },
+    {
+      "name": "Trần Đức Hải",
+      "title": "Điều dưỡng",
+      "code": "0411",
+      "row": 23
+    },
+    {
+      "name": "Nguyễn Thanh Dũng",
+      "title": "Điều dưỡng",
+      "code": "0424",
+      "row": 24
+    },
+    {
+      "name": "Nguyễn Thị Thanh Nhàn",
+      "title": "Điều dưỡng",
+      "code": "0413",
+      "row": 25
+    },
+    {
+      "name": "Phạm Thị Thanh",
+      "title": "Điều dưỡng",
+      "code": "1434",
+      "row": 26
+    },
+    {
+      "name": "Lý Ngọc Lụa",
+      "title": "Điều dưỡng",
+      "code": "0425",
+      "row": 27
+    },
+    {
+      "name": "Nguyễn Hoàng Trung Sơn",
+      "title": "Điều dưỡng",
+      "code": "0429",
+      "row": 28
+    },
+    {
+      "name": "Nguyễn Hồng Thấm",
+      "title": "Điều dưỡng",
+      "code": "0428",
+      "row": 29
+    },
+    {
+      "name": "Nguyễn Thị Lương",
+      "title": "Điều dưỡng",
+      "code": "0415",
+      "row": 30
+    },
+    {
+      "name": "Trương Minh Quý",
+      "title": "Điều dưỡng",
+      "code": "0414",
+      "row": 31
+    },
+    {
+      "name": "Vũ Thị Gài",
+      "title": "Điều dưỡng",
+      "code": "0427",
+      "row": 32
+    },
+    {
+      "name": "Trương Văn Dũng",
+      "title": "Điều dưỡng",
+      "code": "0416",
+      "row": 33
+    },
+    {
+      "name": "Nguyễn Tuấn Kiệt",
+      "title": "Điều dưỡng",
+      "code": "0430",
+      "row": 34
+    },
+    {
+      "name": "Lê Thị Thủy Tiên",
+      "title": "Điều dưỡng",
+      "code": "0418",
+      "row": 35
+    },
+    {
+      "name": "Lê Thị Thanh",
+      "title": "Điều dưỡng",
+      "code": "0417",
+      "row": 36
+    },
+    {
+      "name": "Nguyễn Trúc Linh",
+      "title": "Điều dưỡng",
+      "code": "0420",
+      "row": 37
+    },
+    {
+      "name": "Võ Thị Ngọc Tuyết",
+      "title": "Điều dưỡng",
+      "code": "0422",
+      "row": 38
+    },
+    {
+      "name": "Phạm Trung Tín",
+      "title": "Điều dưỡng",
+      "code": "0423",
+      "row": 39
+    },
+    {
+      "name": "Trần Đình Chiến",
+      "title": "Điều dưỡng",
+      "code": "1139",
+      "row": 40
+    },
+    {
+      "name": "Cao Thị Hồng Hà",
+      "title": "Điều dưỡng",
+      "code": "1227",
+      "row": 41
+    },
+    {
+      "name": "Nguyễn Thị Thanh Tuyền",
+      "title": "Điều dưỡng",
+      "code": "1521",
+      "row": 42
+    },
+    {
+      "name": "Mai Thị Thanh Trúc",
+      "title": "Điều dưỡng",
+      "code": "1518",
+      "row": 43
+    },
+    {
+      "name": "Trần Thị Thúy Ngọc",
+      "title": "Điều dưỡng",
+      "code": "1519",
+      "row": 44
+    },
+    {
+      "name": "Lê Thị Thanh Thúy",
+      "title": "Điều dưỡng",
+      "code": "1520",
+      "row": 45
+    },
+    {
+      "name": "Nguyễn Tấn Tài",
+      "title": "Điều dưỡng",
+      "code": "1610",
+      "row": 46
+    },
+    {
+      "name": "Nguyễn Duy Phương",
+      "title": "Điều dưỡng",
+      "code": "1611",
+      "row": 47
+    },
+    {
+      "name": "Nguyễn Thị Hoàng Hạnh",
+      "title": "Điều dưỡng",
+      "code": "",
+      "row": 48
+    },
+    {
+      "name": "Hoàng Thị Thùy",
+      "title": "Dược sĩ",
+      "code": "",
+      "row": 49
+    }
+  ]
+}

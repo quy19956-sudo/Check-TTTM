@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f3d5e">
+  <title>Kiểm Tra Thủ Thuật Tim Mạch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="app-title">Kiểm Tra Thủ Thuật Tim Mạch</div>
+      <div class="app-subtitle">Bản web tĩnh chạy trực tiếp trên GitHub Pages · Không cần Python · Xử lý Excel ngay trên thiết bị<br><b>Phiên bản Web Static v44</b></div>
+    </div>
+    <nav aria-label="Điều hướng chính">
+      <button class="nav-link active" data-page="work">Trang làm việc</button>
+      <button class="nav-link" data-page="staff">Cập nhật danh sách</button>
+      <button class="nav-link" data-page="rules">Cập nhật danh mục</button>
+      <button class="nav-link" data-page="guide">Hướng dẫn</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div id="messageArea" class="messages" aria-live="polite"></div>
+
+    <section id="page-work" class="page active">
+      <section class="card hero">
+        <h1>Trang làm việc</h1>
+        <p>Chọn file Excel cần kiểm tra. Toàn bộ dữ liệu được đọc và xử lý trong trình duyệt trên thiết bị của bạn; trang web không tải file bệnh nhân lên máy chủ.</p>
+        <div class="notice info"><b>Hỗ trợ:</b> .xlsx và .xls. Bản GitHub Pages này tập trung vào Excel; chức năng đọc bảng PDF của bản Python không được bật vì GitHub Pages không có máy chủ xử lý PDF.</div>
+        <form id="workForm" class="upload-form">
+          <label class="file-label">
+            <span>File làm việc (.xlsx, .xls)</span>
+            <input id="workFile" type="file" accept=".xlsx,.xls" required>
+          </label>
+          <label class="check-option">
+            <input id="fixDayMonthSwap" type="checkbox" checked>
+            <span><b>Sửa lỗi đảo ngày/tháng trong Excel</b><br><small>Dùng khi file bị đổi ngày 01-12 thành tháng/ngày, ví dụ 08/01 bị thành 01/08.</small></span>
+          </label>
+          <button id="runButton" type="submit" class="primary big-action">Kiểm tra và mở kết quả</button>
+        </form>
+      </section>
+
+      <section class="grid two">
+        <div class="card">
+          <h2>Danh sách khoa hiện tại</h2>
+          <div id="staffCountHome" class="big-number">…</div>
+          <p>Nguồn: <span id="staffSourceHome">đang tải…</span></p>
+          <p>Cập nhật: <span id="staffUpdatedHome">…</span></p>
+          <button class="btn" data-goto="staff">Cập nhật danh sách</button>
+        </div>
+        <div class="card">
+          <h2>Danh mục số người hiện tại</h2>
+          <div id="rulesCountHome" class="big-number">…</div>
+          <p>Nguồn: <span id="rulesSourceHome">đang tải…</span></p>
+          <p>Cập nhật: <span id="rulesUpdatedHome">…</span></p>
+          <button class="btn" data-goto="rules">Cập nhật danh mục</button>
+        </div>
+      </section>
+
+      <section class="card guide quick-guide">
+        <h2>Luồng dùng nhanh</h2>
+        <ol>
+          <li>Cập nhật <b>Danh sách khoa</b> khi nhân sự thay đổi.</li>
+          <li>Cập nhật <b>Danh mục số người thủ thuật</b> khi quy định số người/thời gian thay đổi.</li>
+          <li>Chọn file Excel làm việc và bấm <b>Kiểm tra</b>.</li>
+          <li>Kết quả có bộ lọc, in A4 ngang và nút tải báo cáo Excel.</li>
+          <li>Danh sách và danh mục cập nhật được lưu riêng trong trình duyệt của thiết bị hiện tại.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="page-staff" class="page">
+      <section class="card hero">
+        <h1>Cập nhật danh sách nhân viên Nội Tim Mạch/DSA</h1>
+        <p>Nên dùng file có 3 cột <b>STT</b>, <b>Mã NV</b>, <b>Họ và tên</b>. Không chọn file thủ thuật HIS vì cột HOTEN trong file đó là tên bệnh nhân.</p>
+        <form id="staffForm" class="upload-form">
+          <label class="file-label"><span>File danh sách (.xlsx, .xls)</span><input id="staffFile" type="file" accept=".xlsx,.xls" required></label>
+          <button type="submit" class="primary">Cập nhật danh sách</button>
+          <button id="resetStaff" type="button" class="btn">Khôi phục danh sách mặc định</button>
+        </form>
+      </section>
+      <section class="card">
+        <h2>Đang dùng</h2>
+        <p><b>Nguồn:</b> <span id="staffSource"></span></p>
+        <p><b>Cập nhật:</b> <span id="staffUpdated"></span></p>
+        <p><b>Số nhân viên:</b> <span id="staffCount"></span></p>
+        <div class="table-wrap small"><table><thead><tr><th>STT</th><th>Họ tên</th><th>Chức danh</th><th>Mã</th></tr></thead><tbody id="staffTableBody"></tbody></table></div>
+      </section>
+    </section>
+
+    <section id="page-rules" class="page">
+      <section class="card hero">
+        <h1>Cập nhật danh mục số người thủ thuật</h1>
+        <p>Ứng dụng đọc MAPT, TENPT, THOIGIAN và các cột HOTEN1/HOTEN2/HOTEN22/HOTEN3/HOTEN4/HT6/HOTEN5/HOTEN6 để xác định vị trí bắt buộc.</p>
+        <form id="rulesForm" class="upload-form">
+          <label class="file-label"><span>File danh mục (.xlsx, .xls)</span><input id="rulesFile" type="file" accept=".xlsx,.xls" required></label>
+          <button type="submit" class="primary">Cập nhật danh mục</button>
+          <button id="resetRules" type="button" class="btn">Khôi phục danh mục mặc định</button>
+        </form>
+      </section>
+      <section class="card">
+        <h2>Đang dùng</h2>
+        <p><b>Nguồn:</b> <span id="rulesSource"></span></p>
+        <p><b>Cập nhật:</b> <span id="rulesUpdated"></span></p>
+        <p><b>Số thủ thuật:</b> <span id="rulesCount"></span></p>
+        <div class="table-wrap small"><table><thead><tr><th>STT</th><th>Mã PT</th><th>Tên thủ thuật</th><th>Số vị trí</th><th>Thời gian</th><th>Vị trí bắt buộc</th></tr></thead><tbody id="rulesTableBody"></tbody></table></div>
+      </section>
+    </section>
+
+    <section id="page-guide" class="page">
+      <section class="card guide">
+        <h1>Hướng dẫn GitHub Pages</h1>
+        <ol>
+          <li>Tạo repository GitHub và tải <b>toàn bộ nội dung thư mục này</b> lên nhánh <b>main</b>.</li>
+          <li>Vào <b>Settings → Pages</b>, phần Build and deployment chọn <b>Deploy from a branch</b>.</li>
+          <li>Chọn nhánh <b>main</b>, thư mục <b>/(root)</b>, rồi lưu.</li>
+          <li>Mở đường link GitHub Pages mà GitHub cung cấp. Không cần Python, Flask hay máy chủ riêng.</li>
+        </ol>
+        <div class="notice warning"><b>Lưu ý dữ liệu:</b> danh sách nhân viên/danh mục bạn cập nhật được lưu trong localStorage của trình duyệt. Nếu đổi điện thoại, đổi trình duyệt hoặc xóa dữ liệu website, ứng dụng sẽ quay về danh mục mặc định đi kèm.</div>
+        <div class="notice info"><b>Quyền riêng tư:</b> file Excel làm việc được xử lý bằng JavaScript ngay trên thiết bị. GitHub Pages chỉ phục vụ mã nguồn tĩnh.</div>
+      </section>
+    </section>
+
+    <section id="page-result" class="page">
+      <section class="card print-toolbar no-print">
+        <div>
+          <h1>Kết quả kiểm tra</h1>
+          <p id="resultMeta"></p>
+        </div>
+        <div class="toolbar-actions">
+          <button id="printResult" type="button" class="primary">In A4 ngang</button>
+          <button id="downloadReport" type="button" class="btn">Tải Excel</button>
+          <button type="button" class="btn" data-goto="work">Kiểm tra file khác</button>
+        </div>
+      </section>
+
+      <section class="print-page card result a4-report">
+        <div class="report-title">
+          <h1>KẾT QUẢ KIỂM TRA THỦ THUẬT TIM MẠCH</h1>
+          <p id="reportMeta"></p>
+        </div>
+        <div class="summary-grid print-summary">
+          <div class="stat"><b id="sumRecords">0</b><span>Dòng đọc được</span></div>
+          <div class="stat error"><b id="sumErrors">0</b><span>Lỗi</span></div>
+          <div class="stat warn"><b id="sumWarnings">0</b><span>Cảnh báo</span></div>
+          <div class="stat"><b id="sumIssues">0</b><span>Tổng vấn đề</span></div>
+        </div>
+        <h2 id="issueSummaryTitle">Nhóm vấn đề</h2>
+        <div id="issueChips" class="chips issue-summary-print"></div>
+        <div class="section-head">
+          <h2>Danh sách lỗi/cảnh báo</h2>
+          <div class="no-print filter-actions"><button id="clearFilters" type="button">Xóa lọc</button><span id="filterCount" class="muted"></span></div>
+        </div>
+        <div class="table-wrap printable-table issue-scroll-wrap" data-visible-rows="8">
+          <table class="result-table" id="issueTable">
+            <thead>
+              <tr><th>STT</th><th>Mức</th><th>Loại</th><th>Dòng nguồn</th><th>Mã BN</th><th>Họ tên</th><th>Tên thủ thuật</th><th>PT-TT chính</th><th>Bắt đầu</th><th>Kết thúc</th><th>Chi tiết</th><th>Gợi ý</th></tr>
+              <tr class="filter-row no-print">
+                <th><input data-col="0" placeholder="Lọc STT"></th>
+                <th><select data-col="1"><option value="">Tất cả</option><option value="Lỗi">Lỗi</option><option value="Cảnh báo">Cảnh báo</option></select></th>
+                <th><input data-col="2" placeholder="Lọc loại"></th><th><input data-col="3" placeholder="Lọc dòng"></th><th><input data-col="4" placeholder="Lọc mã BN"></th><th><input data-col="5" placeholder="Lọc họ tên"></th><th><input data-col="6" placeholder="Lọc thủ thuật"></th><th><input data-col="7" placeholder="Lọc PT-TT chính"></th><th><input data-col="8" placeholder="Lọc bắt đầu"></th><th><input data-col="9" placeholder="Lọc kết thúc"></th><th><input data-col="10" placeholder="Lọc chi tiết"></th><th><input data-col="11" placeholder="Lọc gợi ý"></th>
+              </tr>
+            </thead>
+            <tbody id="issueTableBody"></tbody>
+          </table>
+        </div>
+        <div class="print-footer"><p>Ghi chú: Kết quả được đối chiếu theo danh sách khoa và danh mục số người thủ thuật đang lưu trong trình duyệt tại thời điểm kiểm tra.</p></div>
+      </section>
+    </section>
+  </main>
+
+  <noscript><div class="noscript">Ứng dụng cần JavaScript để chạy.</div></noscript>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="js/default_data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/excel.js"></script>
+  <script src="js/checker.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+BẢN GITHUB PAGES - KHÔNG CẦN PYTHON
+
+1. Tải toàn bộ file/thư mục trong gói này lên repository GitHub.
+2. Đảm bảo index.html nằm ở thư mục gốc.
+3. GitHub: Settings > Pages > Deploy from a branch.
+4. Chọn main + /(root) > Save.
+5. Mở link GitHub Pages.
+
+Hỗ trợ Excel .xlsx/.xls. Bản web tĩnh không đọc PDF.
+File Excel làm việc được xử lý ngay trên thiết bị, không gửi lên server.
+Danh sách/danh mục cập nhật được lưu trong trình duyệt hiện tại.
