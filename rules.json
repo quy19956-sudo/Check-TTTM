@@ -1,6 +1,6 @@
 {
-  "source_file": "Dữ liệu khởi tạo trên GitHub · DANH MỤC SỐ NGƯỜI THỦ THUẬT.xlsx",
-  "updated_at": "19/07/2026 04:30",
+  "source_file": "DANH MỤC SỐ NGƯỜI THỦ THUẬT FN 2.10.xlsx",
+  "updated_at": "02/10/2026 20:45:37",
   "items": [
     {
       "mapt": "T27001",
@@ -210,7 +210,7 @@
     {
       "mapt": "T28181",
       "tenpt": "Doppler động mạch cảnh, Doppler xuyên sọ",
-      "time_rule": "Trên 20 phút",
+      "time_rule": "Trên 5 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -355,7 +355,7 @@
     {
       "mapt": "T39018",
       "tenpt": "Holter điện tâm đồ.",
-      "time_rule": "Trên 23 tiếng",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -368,7 +368,7 @@
     {
       "mapt": "T39017",
       "tenpt": "Holter huyết áp.",
-      "time_rule": "Trên 23 tiếng",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -463,7 +463,7 @@
     {
       "mapt": "T27107",
       "tenpt": "Nghiệm pháp gắng sức điện tâm đồ",
-      "time_rule": "Tren 20 phút",
+      "time_rule": "Trên 20 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -632,7 +632,7 @@
     {
       "mapt": "T26152",
       "tenpt": "Thông khí nhân tạo không xâm nhập phương thức BiPAP [giờ theo thực tế]",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -645,7 +645,7 @@
     {
       "mapt": "T26153",
       "tenpt": "Thông khí nhân tạo không xâm nhập phương thức CPAP [giờ theo thực tế]",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -658,7 +658,7 @@
     {
       "mapt": "T26156",
       "tenpt": "Thông khí nhân tạo xâm nhập [giờ theo thực tế]",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
