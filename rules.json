@@ -1,11 +1,14 @@
 {
-  "source_file": "Dữ liệu khởi tạo trên GitHub · DANH MỤC SỐ NGƯỜI THỦ THUẬT.xlsx",
-  "updated_at": "19/07/2026 04:30",
+  "reference_kind": "rules",
+  "schema_version": 49,
+  "source_sheet": "SO LUONG NGUOI",
+  "source_file": "DANH MỤC SỐ NGƯỜI THỦ THUẬT FN 2.10.xlsx",
+  "updated_at": "15/10/2026 21:17:41",
   "items": [
     {
       "mapt": "T27001",
       "tenpt": "Bít lỗ thông liên nhĩ/liên thất/ống động mạch",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -34,7 +37,7 @@
     {
       "mapt": "T26004",
       "tenpt": "Cấp cứu ngừng tuần hoàn hô hấp cơ bản",
-      "time_rule": "Trên 5 phút",
+      "time_rule": "Trên hoặc bằng 5 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -55,7 +58,7 @@
     {
       "mapt": "T27015",
       "tenpt": "Chọc dò dịch màng phổi",
-      "time_rule": "Trên 20 phút",
+      "time_rule": "Trên hoặc bằng 20 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -72,7 +75,7 @@
     {
       "mapt": "T27018",
       "tenpt": "Chọc dò màng ngoài tim",
-      "time_rule": "Trên 20 phút",
+      "time_rule": "Trên hoặc bằng 20 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -89,7 +92,7 @@
     {
       "mapt": "T26007",
       "tenpt": "Chọc dò màng ngoài tim cấp cứu",
-      "time_rule": "Trên 20 phút",
+      "time_rule": "Trên hoặc bằng 20 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -106,7 +109,7 @@
     {
       "mapt": "T27021",
       "tenpt": "Chọc dò và dẫn lưu màng ngoài tim",
-      "time_rule": "Trên 20 phút",
+      "time_rule": "Trên hoặc bằng 20 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -123,7 +126,7 @@
     {
       "mapt": "T28123",
       "tenpt": "Chụp động mạch tạng (gan, lách, thận, tử cung, sinh dục..) số hóa xóa nền (DSA)",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -152,7 +155,7 @@
     {
       "mapt": "T27040",
       "tenpt": "Chụp động mạch vành",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -181,7 +184,7 @@
     {
       "mapt": "T28162",
       "tenpt": "Chụp, nong và đặt stent động mạch vành",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -210,7 +213,7 @@
     {
       "mapt": "T28181",
       "tenpt": "Doppler động mạch cảnh, Doppler xuyên sọ",
-      "time_rule": "Trên 20 phút",
+      "time_rule": "Trên hoặc bằng 5 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -223,7 +226,7 @@
     {
       "mapt": "T26023",
       "tenpt": "Đặt catheter động mạch",
-      "time_rule": "Trên 20 phút",
+      "time_rule": "Trên hoặc bằng 20 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -240,7 +243,7 @@
     {
       "mapt": "T26029",
       "tenpt": "Đặt catheter tĩnh mạch trung tâm nhiều nòng",
-      "time_rule": "Trên 20 phút",
+      "time_rule": "Trên hoặc bằng 20 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -257,7 +260,7 @@
     {
       "mapt": "T27054",
       "tenpt": "Đặt máy tạo nhịp tạm thời với điện cực trong buồng tim",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -286,7 +289,7 @@
     {
       "mapt": "T26037",
       "tenpt": "Đặt ống nội khí quản",
-      "time_rule": "Trên 5 phút",
+      "time_rule": "Trên hoặc bằng 5 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -303,7 +306,7 @@
     {
       "mapt": "T26040",
       "tenpt": "Đặt ống thông dạ dày",
-      "time_rule": "Trên 10 phút",
+      "time_rule": "Trên hoặc bằng 10 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -316,7 +319,7 @@
     {
       "mapt": "T27056",
       "tenpt": "Đặt ống thông dạ dày.",
-      "time_rule": "Trên 10 phút",
+      "time_rule": "Trên hoặc bằng 10 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -329,7 +332,7 @@
     {
       "mapt": "T27060",
       "tenpt": "Đặt sonde bàng quang",
-      "time_rule": "Trên 10 phút",
+      "time_rule": "Trên hoặc bằng 10 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -342,7 +345,7 @@
     {
       "mapt": "T26052",
       "tenpt": "Ghi điện tim cấp cứu tại giường",
-      "time_rule": "Trên 5 phút",
+      "time_rule": "Trên hoặc bằng 5 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -355,7 +358,7 @@
     {
       "mapt": "T39018",
       "tenpt": "Holter điện tâm đồ.",
-      "time_rule": "Trên 23 tiếng",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -368,7 +371,7 @@
     {
       "mapt": "T39017",
       "tenpt": "Holter huyết áp.",
-      "time_rule": "Trên 23 tiếng",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -381,7 +384,7 @@
     {
       "mapt": "T27090",
       "tenpt": "Hút đờm hầu họng",
-      "time_rule": "Trên 10 phút",
+      "time_rule": "Trên hoặc bằng 10 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -394,7 +397,7 @@
     {
       "mapt": "T26057",
       "tenpt": "Hút đờm qua ống nội khí quản/canuyn mở khí quản bằng ống thông một lần ở người bệnh có thở máy (một lần hút)",
-      "time_rule": "Trên 10 phút",
+      "time_rule": "Trên hoặc bằng 10 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -407,7 +410,7 @@
     {
       "mapt": "T26058",
       "tenpt": "Hút đờm qua ống nội khí quản/canuyn mở khí quản bằng ống thông một lần ở người bệnh không thở máy (một lần hút)",
-      "time_rule": "Trên 10 phút",
+      "time_rule": "Trên hoặc bằng 10 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -420,7 +423,7 @@
     {
       "mapt": "T26060",
       "tenpt": "Khí dung thuốc cấp cứu (một lần)",
-      "time_rule": "Trên 5 phút",
+      "time_rule": "Trên hoặc bằng 5 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -433,7 +436,7 @@
     {
       "mapt": "T26091",
       "tenpt": "Mở màng phổi cấp cứu",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -450,7 +453,7 @@
     {
       "mapt": "T27324",
       "tenpt": "Nghiệm pháp đánh giá rối loạn nuốt tại giường cho người bệnh tai biến mạch máu não",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -463,7 +466,7 @@
     {
       "mapt": "T27107",
       "tenpt": "Nghiệm pháp gắng sức điện tâm đồ",
-      "time_rule": "Tren 20 phút",
+      "time_rule": "Trên hoặc bằng 20 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -476,7 +479,7 @@
     {
       "mapt": "T27203",
       "tenpt": "Rửa bàng quang",
-      "time_rule": "Trên 15 phút",
+      "time_rule": "Trên hoặc bằng 15 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -489,7 +492,7 @@
     {
       "mapt": "T28198",
       "tenpt": "Siêu âm Doppler động mạch, tĩnh mạch chi dưới",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -502,7 +505,7 @@
     {
       "mapt": "T27222",
       "tenpt": "Siêu âm Doppler mạch máu",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -515,7 +518,7 @@
     {
       "mapt": "T27229",
       "tenpt": "Siêu âm Doppler tim",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -528,7 +531,7 @@
     {
       "mapt": "T28203",
       "tenpt": "Siêu âm Doppler tim, van tim",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -541,7 +544,7 @@
     {
       "mapt": "T25835",
       "tenpt": "Siêu âm Doppler xuyên sọ",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -554,7 +557,7 @@
     {
       "mapt": "T26119",
       "tenpt": "Siêu âm tim cấp cứu tại giường",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -567,7 +570,7 @@
     {
       "mapt": "T25607",
       "tenpt": "Siêu âm tim Doppler",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -580,7 +583,7 @@
     {
       "mapt": "T27236",
       "tenpt": "Siêu âm tim qua thực quản",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -593,7 +596,7 @@
     {
       "mapt": "T25610",
       "tenpt": "Siêu âm tim tại giường",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -606,7 +609,7 @@
     {
       "mapt": "T27248",
       "tenpt": "Sốc điện điều trị các rối loạn nhịp nhanh",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -619,7 +622,7 @@
     {
       "mapt": "T26120",
       "tenpt": "Sốc điện ngoài lồng ngực cấp cứu",
-      "time_rule": "Trên 4 phút",
+      "time_rule": "Trên hoặc bằng 4 phút",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -632,7 +635,7 @@
     {
       "mapt": "T26152",
       "tenpt": "Thông khí nhân tạo không xâm nhập phương thức BiPAP [giờ theo thực tế]",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -645,7 +648,7 @@
     {
       "mapt": "T26153",
       "tenpt": "Thông khí nhân tạo không xâm nhập phương thức CPAP [giờ theo thực tế]",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -658,7 +661,7 @@
     {
       "mapt": "T26156",
       "tenpt": "Thông khí nhân tạo xâm nhập [giờ theo thực tế]",
-      "time_rule": "Không ấn định",
+      "time_rule": "không kiểm tra trùng giờ",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -667,8 +670,32 @@
       ],
       "min_people": 1,
       "row": 43
+    },
+    {
+      "mapt": "T27248",
+      "tenpt": "Sốc điện điều trị các rối loạn nhịp nhanh",
+      "time_rule": "Trên hoặc bằng 4 phút",
+      "required_roles": [
+        {
+          "field": "HOTEN1",
+          "label": "PT-TT chính"
+        }
+      ],
+      "min_people": 1,
+      "row": 44
+    },
+    {
+      "mapt": "T27249",
+      "tenpt": "Sốc điện điều trị rung nhĩ",
+      "time_rule": "Trên hoặc bằng 4 phút",
+      "required_roles": [
+        {
+          "field": "HOTEN1",
+          "label": "PT-TT chính"
+        }
+      ],
+      "min_people": 1,
+      "row": 45
     }
-  ],
-  "reference_kind": "rules",
-  "schema_version": 49
+  ]
 }
