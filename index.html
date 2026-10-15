@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#008080">
+  <title>Kiểm Tra Thủ Thuật Tim Mạch</title>
+  <link rel="stylesheet" href="style.css?v=50">
+</head>
+<body>
+  <div class="desktop">
+    <div class="app-window">
+      <header class="topbar">
+        <svg class="app-icon" viewBox="0 0 20 20" aria-hidden="true" shape-rendering="crispEdges"><path fill="#fff" d="M1 2h18v16H1z"/><path fill="#000" d="M1 2h18v2H1zm0 14h18v2H1zM1 4h2v12H1zm16 0h2v12h-2z"/><path fill="#000080" d="M3 4h14v3H3z"/><path fill="none" stroke="#008080" stroke-width="2" d="M3 12h3l2-3 3 6 2-3h4"/></svg>
+        <span class="app-title">Kiểm Tra Thủ Thuật Tim Mạch</span>
+        <span class="app-version">v50</span>
+      </header>
+      <nav class="menubar" aria-label="Điều hướng chính">
+        <button type="button" class="nav-link active" data-page="work">Làm việc</button>
+        <button type="button" class="nav-link" data-page="staff">Nhân viên</button>
+        <button type="button" class="nav-link" data-page="rules">Danh mục</button>
+        <button type="button" class="nav-link" data-page="settings">Thiết lập</button>
+      </nav>
+
+      <main class="container">
+        <div id="messageArea" class="messages" aria-live="polite"></div>
+
+        <section id="page-work" class="page active">
+          <section class="card hero">
+            <h1>Kiểm tra thủ thuật</h1>
+            <form id="workForm" class="upload-form">
+              <label class="file-label"><span>Tệp dữ liệu Excel</span><input id="workFile" type="file" accept=".xlsx,.xls" required></label>
+              <fieldset class="options-group"><legend>Tùy chọn</legend>
+                <label class="check-option"><input id="fixDayMonthSwap" type="checkbox"><span>Điều chỉnh ngày / tháng</span></label>
+                <label class="scope-field"><span>Phạm vi</span><select id="scopeMode"><option value="reference">Theo danh sách khoa</option><option value="department">Mở rộng trong khoa</option></select></label>
+                <label class="check-option"><input id="checkWrongDepartment" type="checkbox"><span>Rà soát thêm khoa thực hiện</span></label>
+              </fieldset>
+              <div class="action-row"><button id="runButton" type="submit" class="primary big-action">Kiểm tra</button><button id="cancelExcel" type="button" class="btn" hidden>Dừng xử lý</button></div>
+            </form>
+          </section>
+
+          <section class="grid two">
+            <section class="card data-card"><h2>Nhân viên</h2><div class="count-line"><div id="staffCountHome" class="big-number">…</div><span>người</span></div><p class="updated-line">Cập nhật: <span id="staffUpdatedHome">…</span></p><button type="button" class="btn" data-goto="staff">Mở danh sách</button></section>
+            <section class="card data-card"><h2>Danh mục</h2><div class="count-line"><div id="rulesCountHome" class="big-number">…</div><span>thủ thuật</span></div><p class="updated-line">Cập nhật: <span id="rulesUpdatedHome">…</span></p><button type="button" class="btn" data-goto="rules">Mở danh mục</button></section>
+          </section>
+          <div class="bottom-actions"><button id="reloadOnline" type="button" class="btn">Làm mới dữ liệu</button></div>
+        </section>
+
+        <section id="page-staff" class="page">
+          <section class="card hero"><h1>Danh sách nhân viên</h1><form id="staffForm" class="upload-form"><label class="file-label"><span>Tệp danh sách Excel</span><input id="staffFile" type="file" accept=".xlsx,.xls" required></label><div class="action-row"><button type="submit" class="primary">Cập nhật</button><button id="resetStaff" type="button" class="btn">Khôi phục</button></div></form></section>
+          <section class="card"><div class="section-head"><h2>Danh sách hiện tại</h2><span class="record-count"><span id="staffCount"></span> người</span></div><div class="file-meta"><span>Nguồn: <span id="staffSource"></span></span><span>Cập nhật: <span id="staffUpdated"></span></span></div><div class="table-wrap small"><table><thead><tr><th>STT</th><th>Họ tên</th><th>Chức danh</th><th>Mã NV</th></tr></thead><tbody id="staffTableBody"></tbody></table></div></section>
+        </section>
+
+        <section id="page-rules" class="page">
+          <section class="card hero"><h1>Danh mục thủ thuật</h1><form id="rulesForm" class="upload-form"><label class="file-label"><span>Tệp danh mục Excel</span><input id="rulesFile" type="file" accept=".xlsx,.xls" required></label><div class="action-row"><button type="submit" class="primary">Cập nhật</button><button id="resetRules" type="button" class="btn">Khôi phục</button></div></form></section>
+          <section class="card"><div class="section-head"><h2>Danh mục hiện tại</h2><span class="record-count"><span id="rulesCount"></span> thủ thuật</span></div><div class="file-meta"><span>Nguồn: <span id="rulesSource"></span></span><span>Cập nhật: <span id="rulesUpdated"></span></span></div><div class="table-wrap small"><table><thead><tr><th>STT</th><th>Mã PT</th><th>Tên thủ thuật</th><th>Số vị trí</th><th>Thời gian</th><th>Vị trí bắt buộc</th></tr></thead><tbody id="rulesTableBody"></tbody></table></div></section>
+        </section>
+
+        <section id="page-settings" class="page"><section class="card"><h1>Thiết lập</h1><fieldset class="options-group"><legend>Kết nối dữ liệu</legend><div class="action-row"><button id="testGithubToken" type="button" class="btn">Kiểm tra kết nối</button><button id="forgetGithubToken" type="button" class="btn">Xóa phiên kết nối</button></div></fieldset></section></section>
+
+        <section id="page-result" class="page">
+          <section class="card print-toolbar no-print"><div><h1>Kết quả kiểm tra</h1><p id="resultMeta"></p></div><div class="toolbar-actions"><button id="printResult" type="button" class="primary">In A4 ngang</button><button id="downloadReport" type="button" class="btn">Tải Excel</button><button type="button" class="btn" data-goto="work">Kiểm tra tệp khác</button></div></section>
+          <section class="print-page card result a4-report">
+            <div class="report-title"><h1>KẾT QUẢ KIỂM TRA THỦ THUẬT TIM MẠCH</h1><p id="reportMeta"></p></div>
+            <div class="summary-grid print-summary"><div class="stat"><b id="sumRecords">0</b><span>Dòng đọc được</span></div><div class="stat error"><b id="sumErrors">0</b><span>Lỗi</span></div><div class="stat warn"><b id="sumWarnings">0</b><span>Cảnh báo</span></div><div class="stat"><b id="sumIssues">0</b><span>Tổng vấn đề</span></div></div>
+            <h2 id="issueSummaryTitle">Nhóm vấn đề</h2><div id="issueChips" class="chips issue-summary-print"></div>
+            <div class="section-head"><h2>Danh sách lỗi / cảnh báo</h2><div class="no-print filter-actions"><button id="clearFilters" type="button" class="btn">Xóa lọc</button><span id="filterCount" class="muted"></span></div></div>
+            <div class="table-wrap printable-table issue-scroll-wrap" data-visible-rows="8"><table class="result-table" id="issueTable"><thead>
+              <tr><th>STT</th><th>Mức</th><th>Loại</th><th>Dòng nguồn</th><th>Mã BN</th><th>Họ tên</th><th>Tên thủ thuật</th><th>PT-TT chính</th><th>Bắt đầu</th><th>Kết thúc</th><th>Chi tiết</th><th>Gợi ý</th></tr>
+              <tr class="filter-row no-print"><th><input data-col="0" aria-label="Lọc STT" placeholder="STT"></th><th><select data-col="1" aria-label="Lọc mức"><option value="">Tất cả</option><option value="Lỗi">Lỗi</option><option value="Cảnh báo">Cảnh báo</option></select></th><th><input data-col="2" aria-label="Lọc loại" placeholder="Loại"></th><th><input data-col="3" aria-label="Lọc dòng nguồn" placeholder="Dòng"></th><th><input data-col="4" aria-label="Lọc mã bệnh nhân" placeholder="Mã BN"></th><th><input data-col="5" aria-label="Lọc họ tên" placeholder="Họ tên"></th><th><input data-col="6" aria-label="Lọc thủ thuật" placeholder="Thủ thuật"></th><th><input data-col="7" aria-label="Lọc PT-TT chính" placeholder="PT-TT chính"></th><th><input data-col="8" aria-label="Lọc bắt đầu" placeholder="Bắt đầu"></th><th><input data-col="9" aria-label="Lọc kết thúc" placeholder="Kết thúc"></th><th><input data-col="10" aria-label="Lọc chi tiết" placeholder="Chi tiết"></th><th><input data-col="11" aria-label="Lọc gợi ý" placeholder="Gợi ý"></th></tr>
+            </thead><tbody id="issueTableBody"></tbody></table></div>
+            <div class="no-print pagination"><button id="prevIssuePage" type="button" class="btn">◄ Trang trước</button><span id="issuePageStatus" aria-live="polite"></span><button id="nextIssuePage" type="button" class="btn">Trang sau ►</button></div>
+          </section>
+        </section>
+      </main>
+      <footer class="statusbar"><span>Kiểm tra thủ thuật tim mạch</span><span>v50</span></footer>
+    </div>
+  </div>
+  <noscript><div class="noscript">Vui lòng bật JavaScript để sử dụng.</div></noscript>
+  <script src="xlsx-loader.js?v=50"></script>
+  <script src="config.js?v=50"></script>
+  <script src="app.js?v=50"></script>
+  <script src="worker-client.js?v=50"></script>
+</body>
+</html>
