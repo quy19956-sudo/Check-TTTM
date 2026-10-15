@@ -13,7 +13,7 @@
         if(worker)worker.terminate();activeJob=null;
         error?reject(error):resolve(result);
       };
-      try{worker=new Worker(new URL('excel-worker.js?v=52',base));}
+      try{worker=new Worker(new URL('excel-worker.js?v=54',base));}
       catch(_e){finish(new Error('Không mở được luồng xử lý Excel. Mở trang bằng địa chỉ GitHub Pages (HTTPS), rồi tải lại.'));return;}
       activeJob={cancel:()=>finish(new Error('Đã dừng xử lý theo yêu cầu. Danh sách và danh mục hiện tại được giữ nguyên.'))};
       worker.onmessage=e=>{

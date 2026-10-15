@@ -1,9 +1,4 @@
 {
-  "reference_kind": "rules",
-  "schema_version": 49,
-  "source_sheet": "SO LUONG NGUOI",
-  "source_file": "DANH MỤC SỐ NGƯỜI THỦ THUẬT FN 2.10.xlsx",
-  "updated_at": "15/10/2026 21:51:27",
   "items": [
     {
       "mapt": "T27001",
@@ -697,5 +692,10 @@
       "min_people": 1,
       "row": 45
     }
-  ]
+  ],
+  "reference_kind": "rules",
+  "schema_version": 53,
+  "source_sheet": "SO LUONG NGUOI",
+  "source_file": "DANH MỤC SỐ NGƯỜI THỦ THUẬT FN 2.10 (1).xlsx",
+  "updated_at": "15/10/2026"
 }

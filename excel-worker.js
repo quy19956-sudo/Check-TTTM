@@ -1,5 +1,5 @@
 'use strict';
-importScripts('app.js?v=52');
+importScripts('app.js?v=54');
 App.onExcelProgress=message=>self.postMessage({type:'progress',message});
 self.onmessage=async function(event){
   try{

@@ -1,9 +1,6 @@
 {
-  "reference_kind": "staff",
-  "schema_version": 49,
-  "source_sheet": "DANH SÁCH KHOA",
   "source_file": "Bản sao của Danh Sách Khoa Nội Tim Mạch 2026 có mã số.xlsx",
-  "updated_at": "15/10/2026 21:17:23",
+  "updated_at": "15/10/2026",
   "items": [
     {
       "name": "Cao Thị Hồng Hà",
@@ -281,5 +278,8 @@
       "code": "0427",
       "row": 48
     }
-  ]
+  ],
+  "reference_kind": "staff",
+  "schema_version": 53,
+  "source_sheet": "DANH SÁCH KHOA"
 }

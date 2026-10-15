@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#008080">
   <title>Kiểm Tra Thủ Thuật Tim Mạch</title>
-  <link rel="stylesheet" href="style.css?v=52">
+  <link rel="stylesheet" href="style.css?v=54">
 </head>
 <body>
   <div class="desktop">
@@ -13,7 +13,7 @@
       <header class="topbar">
         <svg class="app-icon" viewBox="0 0 20 20" aria-hidden="true" shape-rendering="crispEdges"><path fill="#fff" d="M1 2h18v16H1z"/><path fill="#000" d="M1 2h18v2H1zm0 14h18v2H1zM1 4h2v12H1zm16 0h2v12h-2z"/><path fill="#000080" d="M3 4h14v3H3z"/><path fill="none" stroke="#008080" stroke-width="2" d="M3 12h3l2-3 3 6 2-3h4"/></svg>
         <span class="app-title">Kiểm Tra Thủ Thuật Tim Mạch</span>
-        <span class="app-version">v52</span>
+        <span class="app-version">v54</span>
       </header>
       <nav class="menubar" aria-label="Điều hướng chính">
         <button type="button" class="nav-link active" data-page="work">Làm việc</button>
@@ -49,7 +49,7 @@
         </section>
 
         <section id="page-rules" class="page">
-          <section class="card hero"><h1>Danh mục thủ thuật</h1><form id="rulesForm" class="upload-form"><label class="file-label"><span>Tệp danh mục Excel</span><input id="rulesFile" type="file" accept=".xlsx,.xls" required></label><label class="file-label"><span>Token GitHub</span><input id="rulesToken" name="rulesToken" type="password" placeholder="Dán token để cập nhật danh mục" autocomplete="off" autocapitalize="none" spellcheck="false"></label><div class="action-row"><button type="submit" class="primary">Cập nhật</button><button id="resetRules" type="button" class="btn">Tải lại</button></div></form></section>
+          <section class="card hero"><h1>Danh mục thủ thuật</h1><p>Không ấn định: bỏ giới hạn số phút, vẫn kiểm tra trùng giờ. Không kiểm tra trùng giờ: chỉ bỏ kiểm tra chồng giờ. Cả hai vẫn kiểm tra khoa, nhân viên và ê-kíp.</p><form id="rulesForm" class="upload-form"><label class="file-label"><span>Tệp danh mục Excel</span><input id="rulesFile" type="file" accept=".xlsx,.xls" required></label><label class="file-label"><span>Token GitHub</span><input id="rulesToken" name="rulesToken" type="password" placeholder="Dán token để cập nhật danh mục" autocomplete="off" autocapitalize="none" spellcheck="false"></label><div class="action-row"><button type="submit" class="primary">Cập nhật</button><button id="resetRules" type="button" class="btn">Tải lại</button></div></form></section>
           <section class="card"><div class="section-head"><h2>Danh mục hiện tại</h2><span class="record-count"><span id="rulesCount"></span> thủ thuật</span></div><div class="file-meta"><span>Nguồn: <span id="rulesSource"></span></span><span>Cập nhật: <span id="rulesUpdated"></span></span></div><div class="table-wrap small"><table><thead><tr><th>STT</th><th>Mã PT</th><th>Tên thủ thuật</th><th>Số vị trí</th><th>Thời gian</th><th>Vị trí bắt buộc</th></tr></thead><tbody id="rulesTableBody"></tbody></table></div><div class="pagination"><button id="prevRulesPage" type="button" class="btn">◄ Trang trước</button><span id="rulesPageStatus" aria-live="polite"></span><button id="nextRulesPage" type="button" class="btn">Trang sau ►</button></div></section>
         </section>
 
@@ -69,13 +69,13 @@
           </section>
         </section>
       </main>
-      <footer class="statusbar"><span>Kiểm tra thủ thuật tim mạch</span><span>v52</span></footer>
+      <footer class="statusbar"><span>Kiểm tra thủ thuật tim mạch</span><span>v54</span></footer>
     </div>
   </div>
   <noscript><div class="noscript">Vui lòng bật JavaScript để sử dụng.</div></noscript>
-  <script src="xlsx-loader.js?v=52"></script>
-  <script src="config.js?v=52"></script>
-  <script src="app.js?v=52"></script>
-  <script src="worker-client.js?v=52"></script>
+  <script src="xlsx-loader.js?v=54"></script>
+  <script src="config.js?v=54"></script>
+  <script src="app.js?v=54"></script>
+  <script src="worker-client.js?v=54"></script>
 </body>
 </html>
