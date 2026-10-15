@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#008080">
   <title>Kiểm Tra Thủ Thuật Tim Mạch</title>
-  <link rel="stylesheet" href="style.css?v=51">
+  <link rel="stylesheet" href="style.css?v=52">
 </head>
 <body>
   <div class="desktop">
@@ -13,13 +13,12 @@
       <header class="topbar">
         <svg class="app-icon" viewBox="0 0 20 20" aria-hidden="true" shape-rendering="crispEdges"><path fill="#fff" d="M1 2h18v16H1z"/><path fill="#000" d="M1 2h18v2H1zm0 14h18v2H1zM1 4h2v12H1zm16 0h2v12h-2z"/><path fill="#000080" d="M3 4h14v3H3z"/><path fill="none" stroke="#008080" stroke-width="2" d="M3 12h3l2-3 3 6 2-3h4"/></svg>
         <span class="app-title">Kiểm Tra Thủ Thuật Tim Mạch</span>
-        <span class="app-version">v51</span>
+        <span class="app-version">v52</span>
       </header>
       <nav class="menubar" aria-label="Điều hướng chính">
         <button type="button" class="nav-link active" data-page="work">Làm việc</button>
         <button type="button" class="nav-link" data-page="staff">Nhân viên</button>
         <button type="button" class="nav-link" data-page="rules">Danh mục</button>
-        <button type="button" class="nav-link" data-page="settings">Thiết lập</button>
       </nav>
 
       <main class="container">
@@ -45,16 +44,15 @@
         </section>
 
         <section id="page-staff" class="page">
-          <section class="card hero"><h1>Danh sách nhân viên</h1><form id="staffForm" class="upload-form"><label class="file-label"><span>Tệp danh sách Excel</span><input id="staffFile" type="file" accept=".xlsx,.xls" required></label><div class="action-row"><button type="submit" class="primary">Cập nhật</button><button id="resetStaff" type="button" class="btn">Tải lại</button></div></form></section>
+          <section class="card hero"><h1>Danh sách nhân viên</h1><form id="staffForm" class="upload-form"><label class="file-label"><span>Tệp danh sách Excel</span><input id="staffFile" type="file" accept=".xlsx,.xls" required></label><label class="file-label"><span>Token GitHub</span><input id="staffToken" name="staffToken" type="password" placeholder="Dán token để cập nhật danh sách" autocomplete="off" autocapitalize="none" spellcheck="false"></label><div class="action-row"><button type="submit" class="primary">Cập nhật</button><button id="resetStaff" type="button" class="btn">Tải lại</button></div></form></section>
           <section class="card"><div class="section-head"><h2>Danh sách hiện tại</h2><span class="record-count"><span id="staffCount"></span> người</span></div><div class="file-meta"><span>Nguồn: <span id="staffSource"></span></span><span>Cập nhật: <span id="staffUpdated"></span></span></div><div class="table-wrap small"><table><thead><tr><th>STT</th><th>Họ tên</th><th>Chức danh</th><th>Mã NV</th></tr></thead><tbody id="staffTableBody"></tbody></table></div><div class="pagination"><button id="prevStaffPage" type="button" class="btn">◄ Trang trước</button><span id="staffPageStatus" aria-live="polite"></span><button id="nextStaffPage" type="button" class="btn">Trang sau ►</button></div></section>
         </section>
 
         <section id="page-rules" class="page">
-          <section class="card hero"><h1>Danh mục thủ thuật</h1><form id="rulesForm" class="upload-form"><label class="file-label"><span>Tệp danh mục Excel</span><input id="rulesFile" type="file" accept=".xlsx,.xls" required></label><div class="action-row"><button type="submit" class="primary">Cập nhật</button><button id="resetRules" type="button" class="btn">Tải lại</button></div></form></section>
+          <section class="card hero"><h1>Danh mục thủ thuật</h1><form id="rulesForm" class="upload-form"><label class="file-label"><span>Tệp danh mục Excel</span><input id="rulesFile" type="file" accept=".xlsx,.xls" required></label><label class="file-label"><span>Token GitHub</span><input id="rulesToken" name="rulesToken" type="password" placeholder="Dán token để cập nhật danh mục" autocomplete="off" autocapitalize="none" spellcheck="false"></label><div class="action-row"><button type="submit" class="primary">Cập nhật</button><button id="resetRules" type="button" class="btn">Tải lại</button></div></form></section>
           <section class="card"><div class="section-head"><h2>Danh mục hiện tại</h2><span class="record-count"><span id="rulesCount"></span> thủ thuật</span></div><div class="file-meta"><span>Nguồn: <span id="rulesSource"></span></span><span>Cập nhật: <span id="rulesUpdated"></span></span></div><div class="table-wrap small"><table><thead><tr><th>STT</th><th>Mã PT</th><th>Tên thủ thuật</th><th>Số vị trí</th><th>Thời gian</th><th>Vị trí bắt buộc</th></tr></thead><tbody id="rulesTableBody"></tbody></table></div><div class="pagination"><button id="prevRulesPage" type="button" class="btn">◄ Trang trước</button><span id="rulesPageStatus" aria-live="polite"></span><button id="nextRulesPage" type="button" class="btn">Trang sau ►</button></div></section>
         </section>
 
-        <section id="page-settings" class="page"><section class="card"><h1>Thiết lập</h1><form id="tokenForm" class="upload-form" autocomplete="off"><fieldset class="options-group"><legend>Kết nối dữ liệu</legend><label class="file-label" for="githubToken"><span>Token GitHub</span><input id="githubToken" name="githubToken" type="password" placeholder="Dán token GitHub tại đây" autocomplete="off" autocapitalize="none" spellcheck="false"></label><p id="tokenStatus" class="token-status" role="status">Chưa có token</p><div class="action-row"><button id="saveGithubToken" type="submit" class="primary">Lưu token</button><button id="testGithubToken" type="button" class="btn">Kiểm tra kết nối</button><button id="forgetGithubToken" type="button" class="btn">Xóa token</button></div></fieldset></form></section></section>
 
         <section id="page-result" class="page">
           <section class="card print-toolbar no-print"><div><h1>Kết quả kiểm tra</h1><p id="resultMeta"></p></div><div class="toolbar-actions"><button id="printResult" type="button" class="primary">In A4 ngang</button><button id="downloadReport" type="button" class="btn">Tải Excel</button><button type="button" class="btn" data-goto="work">Kiểm tra tệp khác</button></div></section>
@@ -71,13 +69,13 @@
           </section>
         </section>
       </main>
-      <footer class="statusbar"><span>Kiểm tra thủ thuật tim mạch</span><span>v51</span></footer>
+      <footer class="statusbar"><span>Kiểm tra thủ thuật tim mạch</span><span>v52</span></footer>
     </div>
   </div>
   <noscript><div class="noscript">Vui lòng bật JavaScript để sử dụng.</div></noscript>
-  <script src="xlsx-loader.js?v=51"></script>
-  <script src="config.js?v=51"></script>
-  <script src="app.js?v=51"></script>
-  <script src="worker-client.js?v=51"></script>
+  <script src="xlsx-loader.js?v=52"></script>
+  <script src="config.js?v=52"></script>
+  <script src="app.js?v=52"></script>
+  <script src="worker-client.js?v=52"></script>
 </body>
 </html>

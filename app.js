@@ -606,8 +606,9 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
   const branch=String(cfg.GITHUB_BRANCH||'main').trim()||'main';
   const staffPath=String(cfg.GITHUB_STAFF_PATH||'data/staff.json').trim();
   const rulesPath=String(cfg.GITHUB_RULES_PATH||'data/rules.json').trim();
-  const TOKEN_KEY='kt_ttm_github_pat_session';
-  let tokenInMemory='';
+  const LEGACY_TOKEN_KEY='kt_ttm_github_pat_session';
+  try{sessionStorage.removeItem(LEGACY_TOKEN_KEY);}catch(_e){}
+  try{localStorage.removeItem(LEGACY_TOKEN_KEY);}catch(_e){}
   const baseline=new Map();
   const catalogVersion=data=>JSON.stringify([data.source_file||'',data.updated_at||'',data.items||[]]);
 
@@ -633,7 +634,7 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
     const controller=new AbortController();
     const timer=setTimeout(()=>controller.abort(),ms||8000);
     const opts=Object.assign({},options||{},{signal:controller.signal});
-    return fetch(url,opts).finally(()=>clearTimeout(timer));
+    return Promise.resolve().then(()=>fetch(url,opts)).finally(()=>clearTimeout(timer));
   }
 
   function decodeBase64Utf8(base64){
@@ -644,12 +645,8 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
 
   async function readViaApi(path){
     const url=apiUrl(path)+'?ref='+encodeURIComponent(branch)+'&t='+Date.now();
-    let headers=getToken()?authHeaders(getToken()):{'Accept':'application/vnd.github+json'};
-    let res=await fetchWithTimeout(url,{method:'GET',cache:'no-store',headers},15000);
-    if(res.status===401&&getToken()){
-      headers={'Accept':'application/vnd.github+json'};
-      res=await fetchWithTimeout(url,{method:'GET',cache:'no-store',headers},15000);
-    }
+    const headers={'Accept':'application/vnd.github+json'};
+    const res=await fetchWithTimeout(url,{method:'GET',cache:'no-store',headers},15000);
     if(!res.ok)throw await apiError(res);
     const body=await res.json();
     if(!body||body.type!=='file')throw new Error(`Không đọc được nội dung ${path}.`);
@@ -677,29 +674,21 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
     return {ok:!!(staff&&rules)&&!errors.length,staff,rules,repo:repoLabel(),branch,errors};
   }
 
-  function getToken(){
-    if(tokenInMemory)return tokenInMemory;
-    try{return String(sessionStorage.getItem(TOKEN_KEY)||'').trim();}
-    catch(_e){return '';}
-  }
-
-  function setToken(token){
+  function validateToken(token){
     token=String(token||'').trim();
-    if(!token)throw new Error('GitHub token không được để trống.');
-    tokenInMemory=token;
-    try{sessionStorage.setItem(TOKEN_KEY,token);}catch(_e){}
+    if(!token){const error=new Error('Bạn chưa nhập token GitHub.');error.code='TOKEN_REQUIRED';throw error;}
+    if(!/^[A-Za-z0-9_.-]+$/.test(token)){
+      const error=new Error('Token có ký tự không hợp lệ. Chỉ dán nguyên chuỗi token GitHub, không kèm lời hướng dẫn, dấu ngoặc hoặc xuống dòng. Tắt bộ gõ tiếng Việt khi nhập token.');
+      error.code='TOKEN_FORMAT_INVALID';throw error;
+    }
     return token;
   }
 
-  function clearToken(){
-    tokenInMemory='';
-    try{sessionStorage.removeItem(TOKEN_KEY);}catch(_e){}
-  }
-
   function authHeaders(token){
+    token=validateToken(token);
     return {
       'Accept':'application/vnd.github+json',
-      'Authorization':'Bearer '+String(token||'').trim(),
+      'Authorization':'Bearer '+token,
       'Content-Type':'application/json'
     };
   }
@@ -752,9 +741,7 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
   async function saveFile(path,data,token,label){
     if(!enabled())throw new Error('Chưa cấu hình repository GitHub trong config.js.');
     if(!data||!Array.isArray(data.items))throw new Error('Dữ liệu không hợp lệ: thiếu items.');
-    token=String(token||getToken()||'').trim();
-    if(!token)throw new Error('Bạn chưa nhập GitHub token.');
-    setToken(token);
+    token=validateToken(token);
 
     const sha=await getCurrentSha(path,token);
     const now=new Date();
@@ -790,19 +777,8 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
   async function saveStaff(data,token){return saveFile(staffPath,data,token,'danh sách nhân viên');}
   async function saveRules(data,token){return saveFile(rulesPath,data,token,'danh mục thủ thuật');}
 
-  async function checkWriteAccess(token){
-    token=String(token||getToken()||'').trim();
-    if(!token)throw new Error('Bạn chưa nhập GitHub token.');
-    setToken(token);
-    const url=`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
-    const res=await fetchWithTimeout(url,{method:'GET',cache:'no-store',headers:authHeaders(token)},15000);
-    if(!res.ok)throw await apiError(res);
-    const body=await res.json();
-    return {ok:true,repo:body.full_name||repoLabel(),private:!!body.private,default_branch:body.default_branch||branch};
-  }
-
   App.OnlineStore={
-    enabled,loadAll,saveStaff,saveRules,getToken,setToken,clearToken,checkWriteAccess,
+    enabled,loadAll,saveStaff,saveRules,validateToken,
     repo:repoLabel(),branch,staffPath,rulesPath
   };
 })(globalThis);
@@ -836,27 +812,14 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
   function setLoading(form,on){if(!form)return;form.classList.toggle('loading',!!on);for(const el of form.querySelectorAll('button,input,select'))if(el.id!=='cancelExcel')el.disabled=!!on;}
   function validExcelName(name){return /\.(xlsx|xls)$/i.test(name||'');}
   function onlineEnabled(){return !!(App.OnlineStore&&App.OnlineStore.enabled&&App.OnlineStore.enabled());}
-  function refreshTokenState(){
-    const hasToken=!!(App.OnlineStore&&App.OnlineStore.getToken&&App.OnlineStore.getToken());
-    $('tokenStatus').textContent=hasToken?'Đã lưu token':'Chưa có token';
+  function takeUpdateToken(id){
+    const input=$(id),token=input.value;
+    input.value='';
+    return App.OnlineStore.validateToken(token);
   }
-  function saveTokenFromField(){
-    const input=$('githubToken'),token=String(input.value||'').trim();
-    if(!token)throw new Error('Bạn chưa nhập token.');
-    App.OnlineStore.setToken(token);input.value='';refreshTokenState();return token;
-  }
-  function openTokenSettings(){showPage('settings');refreshTokenState();$('githubToken').focus();}
-  function askGithubToken(action){
-    if(String($('githubToken').value||'').trim())saveTokenFromField();
-    const token=App.OnlineStore&&App.OnlineStore.getToken?App.OnlineStore.getToken():'';
-    if(token)return token;
-    openTokenSettings();
-    const error=new Error('Nhập Token GitHub trong Thiết lập rồi bấm Lưu token.');error.code='TOKEN_REQUIRED';throw error;
-  }
-  function handleActionError(prefix,error){
-    if(error&&[401,403].includes(error.status)){
-      if(error.status===401&&App.OnlineStore)App.OnlineStore.clearToken();
-      openTokenSettings();
+  function handleActionError(prefix,error,tokenInput){
+    if(tokenInput&&error&&([401,403].includes(error.status)||['TOKEN_REQUIRED','TOKEN_FORMAT_INVALID'].includes(error.code))){
+      showPage(tokenInput==='staffToken'?'staff':'rules');$(tokenInput).focus();
     }
     showMessage(prefix+(error&&error.message?error.message:String(error)),'error');
   }
@@ -881,6 +844,8 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
   }
 
   function showPage(name){
+    if(name!=='staff')$('staffToken').value='';
+    if(name!=='rules')$('rulesToken').value='';
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); const page=$('page-'+name);if(page)page.classList.add('active');
     document.querySelectorAll('.nav-link').forEach(b=>b.classList.toggle('active',b.dataset.page===name)); clearMessage(); window.scrollTo({top:0,behavior:'smooth'});
   }
@@ -977,7 +942,7 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
       const fix=$('fixDayMonthSwap').checked,usedStaff=staffData,usedRules=rulesData;
       const result=await App.runExcelTask('check',{file,fixDayMonthSwap:fix,staffData:usedStaff,rulesData:usedRules},m=>showMessage(m,'info'));
       const dateNote=fix?'đã sửa ngày-tháng 01-12':'không sửa ngày-tháng';
-      result.uploaded_name=file.name;result.date_fix_note=dateNote;result.checked_at=App.nowText();result.app_version='v51_Win98_20261015';
+      result.uploaded_name=file.name;result.date_fix_note=dateNote;result.checked_at=App.nowText();result.app_version='v52_Win98_20261015';
       result.reference_versions={staff:usedStaff.updated_at||'',rules:usedRules.updated_at||''};
       result.scope_note='Nội Tim Mạch / DSA';
       renderResult(result);
@@ -986,15 +951,16 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
 
   async function onStaffSubmit(e){
     e.preventDefault();const form=e.currentTarget,file=$('staffFile').files[0];if(!file)return showMessage('Bạn chưa chọn file danh sách.','error');if(!validExcelName(file.name))return showMessage('Danh sách phải là file .xlsx hoặc .xls.','error');setLoading(form,true);showMessage('Đang đọc danh sách nhân viên…','info');
+    let token='';
     try{
+      if(onlineEnabled())token=takeUpdateToken('staffToken');
       if(referenceLoad)await referenceLoad;
       const parsed=await App.runExcelTask('staff',{file},m=>showMessage(m,'info'));if(!parsed.items.length)throw new Error('File không giống danh sách nhân viên. Nên dùng 3 cột STT, Mã NV, Họ và tên; không chọn file thủ thuật HIS.');
       const candidate={reference_kind:'staff',schema_version:49,source_sheet:parsed.sheet,source_file:file.name,updated_at:App.nowText(),items:parsed.items};
       App.validateReference(candidate,form.id==='staffForm'?'staff':'rules');
       if(onlineEnabled()){
-        const pin=askGithubToken('lưu danh sách nhân viên');
         showMessage('Đang commit danh sách lên GitHub…','info');
-        const result=await App.OnlineStore.saveStaff(candidate,pin);
+        const result=await App.OnlineStore.saveStaff(candidate,token);
         referenceRevision++;staffData=result.data&&Array.isArray(result.data.items)?result.data:candidate;
         saveStored(STAFF_KEY,staffData);refreshAll();
         showMessage(`Đã cập nhật ${parsed.items.length} nhân viên.`,'success');
@@ -1003,20 +969,21 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
         showMessage(`Đã lưu ${parsed.items.length} nhân viên trên thiết bị này.`,'info');
       }
       form.reset();
-    }catch(err){handleActionError('Không cập nhật được danh sách: ',err);}finally{setLoading(form,false);}
+    }catch(err){setLoading(form,false);handleActionError('Không cập nhật được danh sách: ',err,'staffToken');}finally{token='';$('staffToken').value='';setLoading(form,false);}
   }
 
   async function onRulesSubmit(e){
     e.preventDefault();const form=e.currentTarget,file=$('rulesFile').files[0];if(!file)return showMessage('Bạn chưa chọn file danh mục.','error');if(!validExcelName(file.name))return showMessage('Danh mục phải là file .xlsx hoặc .xls.','error');setLoading(form,true);showMessage('Đang đọc danh mục thủ thuật…','info');
+    let token='';
     try{
+      if(onlineEnabled())token=takeUpdateToken('rulesToken');
       if(referenceLoad)await referenceLoad;
       const parsed=await App.runExcelTask('rules',{file},m=>showMessage(m,'info'));if(!parsed.items.length)throw new Error('Không tìm thấy danh mục quy định phù hợp: cần MAPT, TENPT, THOIGIAN và các vị trí đánh dấu x/1.');
       const candidate={reference_kind:'rules',schema_version:49,source_sheet:parsed.sheet,source_file:file.name,updated_at:App.nowText(),items:parsed.items};
       App.validateReference(candidate,form.id==='staffForm'?'staff':'rules');
       if(onlineEnabled()){
-        const pin=askGithubToken('lưu danh mục thủ thuật');
         showMessage('Đang commit danh mục lên GitHub…','info');
-        const result=await App.OnlineStore.saveRules(candidate,pin);
+        const result=await App.OnlineStore.saveRules(candidate,token);
         referenceRevision++;rulesData=result.data&&Array.isArray(result.data.items)?result.data:candidate;
         saveStored(RULES_KEY,rulesData);refreshAll();
         showMessage(`Đã cập nhật ${parsed.items.length} thủ thuật.`,'success');
@@ -1025,7 +992,7 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
         showMessage(`Đã lưu ${parsed.items.length} thủ thuật trên thiết bị này.`,'info');
       }
       form.reset();
-    }catch(err){handleActionError('Không cập nhật được danh mục: ',err);}finally{setLoading(form,false);}
+    }catch(err){setLoading(form,false);handleActionError('Không cập nhật được danh mục: ',err,'rulesToken');}finally{token='';$('rulesToken').value='';setLoading(form,false);}
   }
 
   async function reloadReferenceData(){
@@ -1037,7 +1004,7 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
   }
 
   async function init(){
-    staffData=getStored(STAFF_KEY,App.DEFAULT_STAFF);rulesData=getStored(RULES_KEY,App.DEFAULT_RULES);refreshAll();refreshTokenState();
+    staffData=getStored(STAFF_KEY,App.DEFAULT_STAFF);rulesData=getStored(RULES_KEY,App.DEFAULT_RULES);refreshAll();
     document.querySelectorAll('.nav-link').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.goto)));
     $('workForm').addEventListener('submit',onWorkSubmit);$('staffForm').addEventListener('submit',onStaffSubmit);$('rulesForm').addEventListener('submit',onRulesSubmit);
     $('cancelExcel').addEventListener('click',()=>App.cancelExcelTask&&App.cancelExcelTask());
@@ -1048,9 +1015,6 @@ g.App.DEFAULT_RULES={"source_file":"Dữ liệu khởi tạo trên GitHub · DAN
     $('prevStaffPage').addEventListener('click',()=>{staffPage--;refreshStaff();});$('nextStaffPage').addEventListener('click',()=>{staffPage++;refreshStaff();});
     $('prevRulesPage').addEventListener('click',()=>{rulesPage--;refreshRules();});$('nextRulesPage').addEventListener('click',()=>{rulesPage++;refreshRules();});
     if(App.excelReady)App.excelReady.catch(()=>showMessage('Không tải được thư viện Excel. Kiểm tra Internet và tải lại trang. Danh sách/danh mục vẫn được giữ.','error'));
-    $('tokenForm').addEventListener('submit',e=>{e.preventDefault();try{saveTokenFromField();showMessage('Đã lưu token.','success');}catch(err){handleActionError('',err);}});
-    if($('forgetGithubToken'))$('forgetGithubToken').addEventListener('click',()=>{if(App.OnlineStore&&App.OnlineStore.clearToken)App.OnlineStore.clearToken();$('githubToken').value='';refreshTokenState();showMessage('Đã xóa token.','success');});
-    if($('testGithubToken'))$('testGithubToken').addEventListener('click',async()=>{try{const token=askGithubToken('kiểm tra kết nối');showMessage('Đang kiểm tra kết nối…','info');await App.OnlineStore.checkWriteAccess(token);refreshTokenState();showMessage('Kết nối đọc dữ liệu thành công.','success');}catch(err){handleActionError('Không kết nối được: ',err);}});
     if(onlineEnabled()){
       try{
         showMessage('Đang tải danh sách và danh mục từ GitHub…','info');
