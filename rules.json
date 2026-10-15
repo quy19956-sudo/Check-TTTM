@@ -3,12 +3,12 @@
   "schema_version": 49,
   "source_sheet": "SO LUONG NGUOI",
   "source_file": "DANH MỤC SỐ NGƯỜI THỦ THUẬT FN 2.10.xlsx",
-  "updated_at": "15/10/2026 21:17:41",
+  "updated_at": "15/10/2026 21:51:27",
   "items": [
     {
       "mapt": "T27001",
       "tenpt": "Bít lỗ thông liên nhĩ/liên thất/ống động mạch",
-      "time_rule": "không kiểm tra trùng giờ",
+      "time_rule": "không ấn định",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -126,7 +126,7 @@
     {
       "mapt": "T28123",
       "tenpt": "Chụp động mạch tạng (gan, lách, thận, tử cung, sinh dục..) số hóa xóa nền (DSA)",
-      "time_rule": "không kiểm tra trùng giờ",
+      "time_rule": "không ấn định",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -155,7 +155,7 @@
     {
       "mapt": "T27040",
       "tenpt": "Chụp động mạch vành",
-      "time_rule": "không kiểm tra trùng giờ",
+      "time_rule": "không ấn định",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -184,7 +184,7 @@
     {
       "mapt": "T28162",
       "tenpt": "Chụp, nong và đặt stent động mạch vành",
-      "time_rule": "không kiểm tra trùng giờ",
+      "time_rule": "không ấn định",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -260,7 +260,7 @@
     {
       "mapt": "T27054",
       "tenpt": "Đặt máy tạo nhịp tạm thời với điện cực trong buồng tim",
-      "time_rule": "không kiểm tra trùng giờ",
+      "time_rule": "không ấn định",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -436,7 +436,7 @@
     {
       "mapt": "T26091",
       "tenpt": "Mở màng phổi cấp cứu",
-      "time_rule": "không kiểm tra trùng giờ",
+      "time_rule": "không ấn định",
       "required_roles": [
         {
           "field": "HOTEN1",
@@ -453,7 +453,7 @@
     {
       "mapt": "T27324",
       "tenpt": "Nghiệm pháp đánh giá rối loạn nuốt tại giường cho người bệnh tai biến mạch máu não",
-      "time_rule": "không kiểm tra trùng giờ",
+      "time_rule": "không ấn định",
       "required_roles": [
         {
           "field": "HOTEN1",
