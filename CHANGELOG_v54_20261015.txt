@@ -1,9 +1,0 @@
-v54 — 15/10/2026
-
-Khoa thực hiện chỉ dùng TENPMO.
-Xóa hoàn toàn quy tắc phát sinh lỗi/cảnh báo khi TENKP khác TENKHOACHIDINH.
-Xóa thống kê, nhãn và mục xuất báo cáo về so sánh khoa chỉ định.
-Dòng 17468 không còn lỗi/cảnh báo. Loại bỏ đủ 26 cảnh báo không đúng của v53.
-Giữ các sửa chữa liên quan không ấn định số phút, miễn kiểm tra trùng giờ và đối chiếu mã/tên nhân viên.
-Bổ sung kiểm thử: đổi hai cột khoa chỉ định không làm phát sinh vấn đề; khoa chỉ định không che được TENPMO sai/thiếu.
-Kết quả: 25 lỗi, 10 cảnh báo; 33 kiểm thử logic đạt.
