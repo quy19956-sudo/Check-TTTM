@@ -220,7 +220,7 @@
     },
     {
       "mapt": "T26023",
-      "tenpt": "Đặt catheter động mạch [theo dõi HA liên tục]",
+      "tenpt": "Đặt catheter động mạch",
       "time_rule": "Trên hoặc bằng 20 phút",
       "required_roles": [
         {
